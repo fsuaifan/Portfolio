@@ -8,6 +8,7 @@
 :root{
   color-scheme:light;box-sizing:border-box;
   --red:#E62332;--red-deep:#B31B27;--navy:#163166;--royal:#214793;--text:#333333;--gray:#F1F1F1;--white:#FFFFFF;
+  --border:#DCE3F0;--ok:#157347;
   --font:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
 }
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
@@ -16,73 +17,113 @@ body{position:relative;display:flex;flex-direction:column;min-height:100vh;min-h
 h1,h2{color:var(--navy);line-height:1.15;margin:0 0 .5em}
 h3{color:var(--royal);margin:0 0 .5em}
 a{color:var(--royal)}
-.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+.wrap{max-width:1020px;margin:0 auto;padding:0 16px}
 /* top bar */
-header{background:var(--navy);color:var(--white);padding-top:env(safe-area-inset-top,0px)}
-.topbar{display:grid;grid-template-columns:120px 1fr auto}
-.topbar>*{padding:16px 12px;display:flex;align-items:center}
-.topbar>*:last-child{border-right:0;justify-content:center;text-align:center;gap:10px}
+header{background:var(--navy);color:var(--white);padding-top:env(safe-area-inset-top,0px);position:sticky;top:0;z-index:40;box-shadow:0 2px 10px rgba(22,49,102,.18)}
+.topbar{display:grid;grid-template-columns:120px 1fr auto;align-items:center}
+.topbar>*{padding:12px 10px;display:flex;align-items:center}
+.topbar>*:last-child{border-right:0;justify-content:flex-end;gap:10px;position:relative}
 .topbar nav{flex-wrap:wrap;gap:4px 4px}
-.topbar nav a{color:var(--white);text-decoration:none;padding:4px 10px;border-bottom:3px solid transparent}
+.topbar nav a{color:var(--white);text-decoration:none;padding:6px 10px;border-bottom:3px solid transparent;font-size:.95rem;white-space:nowrap}
 .topbar nav a:hover{border-bottom-color:var(--red-deep)}
 .topbar nav a[aria-current="true"]{border-bottom-color:var(--red);font-weight:700}
 .logo{display:inline-flex;padding:2px 8px}
-.logo img{display:block;height:48px;width:auto}
-.dot{display:inline-grid;place-items:center;min-width:22px;height:22px;border-radius:999px;background:var(--red);color:var(--white);font-size:.75rem;font-weight:700}
-a:focus-visible,.btn:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.logo img{display:block;height:44px;width:auto}
+.dot{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 6px;border-radius:999px;background:var(--red);color:var(--white);font-size:.75rem;font-weight:700;border:0;cursor:pointer}
+.user-chip{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:var(--white);padding:5px 10px;border-radius:999px;text-decoration:none;font-size:.86rem;font-weight:600;cursor:pointer}
+.user-chip:hover{background:rgba(255,255,255,.2)}
+.user-chip img{width:28px;height:28px;border-radius:50%;object-fit:cover;background:var(--white)}
+.role-pill{font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;padding:2px 7px;border-radius:999px;background:var(--red);color:var(--white);font-weight:700}
+.role-pill.student{background:var(--royal)}
+.notif-pop{position:absolute;top:calc(100% + 6px);right:0;width:300px;max-width:90vw;background:var(--white);color:var(--text);border:1px solid var(--border);border-radius:10px;box-shadow:0 12px 30px rgba(22,49,102,.2);padding:12px;z-index:60;text-align:left}
+.notif-pop h4{margin:0 0 8px;color:var(--navy);font-size:.95rem}
+.notif-pop ul{list-style:none;margin:0;padding:0;max-height:240px;overflow:auto}
+.notif-pop li{font-size:.84rem;padding:7px 8px;border-radius:6px;background:var(--gray);margin-bottom:6px;border-left:3px solid var(--red)}
+a:focus-visible,.btn:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--red);outline-offset:2px}
 /* screens */
-.screen{display:none;padding:32px 0 56px}
+.screen{display:none;padding:28px 0 56px}
 .screen.active{display:block}
 body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800' preserveAspectRatio='xMidYMid slice'%3E %3Cdefs%3E%3Cfilter id='b' x='-20%25' y='-20%25' width='140%25' height='140%25' color-interpolation-filters='sRGB'%3E %3CfeTurbulence type='fractalNoise' baseFrequency='0.008 0.03' numOctaves='3' seed='4' result='w'/%3E %3CfeDisplacementMap in='SourceGraphic' in2='w' scale='90' result='d'/%3E %3CfeTurbulence type='fractalNoise' baseFrequency='0.004 0.28' numOctaves='2' seed='9' result='s'/%3E %3CfeColorMatrix in='s' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.7 0 0 0 0.45' result='sa'/%3E %3CfeComposite in='d' in2='sa' operator='in'/%3E%3C/filter%3E%3C/defs%3E %3Cg filter='url(%23b)'%3E %3Crect x='-120' y='60' width='1440' height='190' rx='95' fill='%23F1F1F1' fill-opacity='0.3' transform='rotate(-3 600 150)'/%3E %3Crect x='-120' y='300' width='1440' height='170' rx='85' fill='%23214793' fill-opacity='0.035' transform='rotate(2 600 380)'/%3E %3Crect x='-120' y='520' width='1440' height='210' rx='105' fill='%23F1F1F1' fill-opacity='0.3' transform='rotate(-2 600 620)'/%3E %3Cellipse cx='930' cy='420' rx='280' ry='55' fill='%23E62332' fill-opacity='0.025'/%3E %3C/g%3E%3C/svg%3E") center top/max(100%,1400px) auto repeat-y}
-.hero{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 400' preserveAspectRatio='none'%3E %3Cdefs%3E%3Cfilter id='b' x='-20%25' y='-20%25' width='140%25' height='140%25' color-interpolation-filters='sRGB'%3E %3CfeTurbulence type='fractalNoise' baseFrequency='0.01 0.04' numOctaves='3' seed='4' result='w'/%3E %3CfeDisplacementMap in='SourceGraphic' in2='w' scale='40' result='d'/%3E %3CfeTurbulence type='fractalNoise' baseFrequency='0.004 0.28' numOctaves='2' seed='9' result='s'/%3E %3CfeColorMatrix in='s' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.8 0 0 0 0.42' result='sa'/%3E %3CfeComposite in='d' in2='sa' operator='in'/%3E%3C/filter%3E%3C/defs%3E %3Cg filter='url(%23b)'%3E %3Crect x='45' y='50' width='910' height='300' rx='60' fill='%23F1F1F1'/%3E %3Crect x='25' y='90' width='950' height='200' rx='60' fill='%23F1F1F1' fill-opacity='0.55'/%3E %3Crect x='120' y='30' width='700' height='70' rx='35' fill='%23214793' fill-opacity='0.035'/%3E %3C/g%3E%3C/svg%3E") center/100% 100% no-repeat;text-align:center;padding:64px 24px}
-.hero h1{font-size:clamp(2rem,6vw,3.2rem)}
+.hero{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 400' preserveAspectRatio='none'%3E %3Cdefs%3E%3Cfilter id='b' x='-20%25' y='-20%25' width='140%25' height='140%25' color-interpolation-filters='sRGB'%3E %3CfeTurbulence type='fractalNoise' baseFrequency='0.01 0.04' numOctaves='3' seed='4' result='w'/%3E %3CfeDisplacementMap in='SourceGraphic' in2='w' scale='40' result='d'/%3E %3CfeTurbulence type='fractalNoise' baseFrequency='0.004 0.28' numOctaves='2' seed='9' result='s'/%3E %3CfeColorMatrix in='s' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.8 0 0 0 0.42' result='sa'/%3E %3CfeComposite in='d' in2='sa' operator='in'/%3E%3C/filter%3E%3C/defs%3E %3Cg filter='url(%23b)'%3E %3Crect x='45' y='50' width='910' height='300' rx='60' fill='%23F1F1F1'/%3E %3Crect x='25' y='90' width='950' height='200' rx='60' fill='%23F1F1F1' fill-opacity='0.55'/%3E %3Crect x='120' y='30' width='700' height='70' rx='35' fill='%23214793' fill-opacity='0.035'/%3E %3C/g%3E%3C/svg%3E") center/100% 100% no-repeat;text-align:center;padding:56px 24px}
+.hero h1{font-size:clamp(2rem,6vw,3.1rem)}
 .hero p{max-width:60ch;margin:0 auto 1.2em}
-.hero .ph{background:var(--white);min-height:120px;margin-top:24px}
-.hero-img{display:block;max-width:100%;max-height:480px;height:auto;margin:24px auto 0;object-fit:contain}
-.quick{margin-top:28px}
-.debugbar{display:flex;justify-content:flex-end;align-items:center;gap:10px;padding:10px 0 0}
+.hero-img{display:block;max-width:100%;max-height:420px;height:auto;margin:24px auto 0;object-fit:contain}
+.quick{margin-top:24px}
+.debugbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:0 0 12px;flex-wrap:wrap}
 .dbg{background:var(--text);color:var(--white);font:700 .7rem ui-monospace,Menlo,Consolas,monospace;letter-spacing:.08em;padding:3px 7px;border-radius:4px}
 .strip{display:flex;justify-content:space-around;flex-wrap:wrap;gap:12px;padding:20px 0;border-bottom:1px solid var(--gray)}
 .strip a{text-decoration:none;color:var(--royal);text-align:center;font-weight:600;font-size:.9rem}
-.strip .ic{display:grid;place-items:center;width:52px;height:52px;margin:0 auto 6px;border-radius:50%;background:var(--royal);color:var(--white);font-size:.75rem;font-weight:400}
+.strip .ic{display:grid;place-items:center;width:52px;height:52px;margin:0 auto 6px;border-radius:50%;background:var(--royal);color:var(--white);font-size:.75rem;font-weight:700}
 .strip a:hover .ic{background:var(--navy)}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:16px 0 28px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:16px 0 28px}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:16px 0 24px}
-.card{background:var(--gray);border-radius:8px;padding:16px;min-height:120px}
-.card.tall{min-height:210px;border-left:4px solid var(--red-deep)}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:16px 0 24px}
+.card{background:var(--gray);border-radius:10px;padding:16px;min-height:110px;display:flex;flex-direction:column;justify-content:space-between}
+.card.tall{min-height:240px;border-left:4px solid var(--red-deep);background:var(--white);border:1px solid var(--border);border-left:4px solid var(--red);box-shadow:0 3px 12px rgba(22,49,102,.05)}
 .card strong{color:var(--navy)}
-.tags{font-size:.85rem;color:var(--royal)}
+.mentor-head{display:flex;gap:12px;align-items:center;margin-bottom:10px}
+.mentor-img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--royal);background:var(--gray);flex:none}
+.mentor-img.lg{width:84px;height:84px;border-width:3px}
+.mentor-meta{font-size:.86rem;color:#555}
+.mentor-desc{font-size:.92rem;margin:6px 0 10px;color:var(--text)}
+.tags{font-size:.82rem;color:var(--royal);display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px}
+.tag{display:inline-block;background:#EBF0FA;color:var(--navy);padding:3px 9px;border-radius:999px;font-weight:600;font-size:.78rem}
+.tag.red{background:#FDEBED;color:var(--red-deep)}
+.tag.ok{background:#E7F5EE;color:var(--ok)}
 .center{text-align:center}
-.btn{display:inline-block;border:0;border-radius:8px;padding:12px 22px;font:600 1rem var(--font);background:var(--red);color:var(--white);text-decoration:none;cursor:pointer}
+.btn{display:inline-block;border:0;border-radius:8px;padding:11px 20px;font:600 .96rem var(--font);background:var(--red);color:var(--white);text-decoration:none;cursor:pointer;text-align:center}
 .btn:hover,.btn:active{background:var(--red-deep)}
 .btn.secondary{background:var(--royal)}
 .btn.secondary:hover,.btn.secondary:active{background:var(--navy)}
-.btn.small{padding:7px 14px;font-size:.9rem}
-.panel{background:var(--gray);border-radius:8px;padding:20px;margin-bottom:16px}
-.panel.white{background:var(--white);border:1px solid var(--gray)}
-label{display:block;font-weight:600;margin:14px 0 6px;color:var(--text)}
-select,input[type=file]{width:100%;padding:11px 12px;border:1px solid var(--royal);border-radius:8px;background:var(--gray);color:var(--text);font:inherit}
-.hint{color:var(--royal)}
-.ph{border:2px dashed var(--royal);border-radius:8px;min-height:160px;display:grid;place-items:center;text-align:center;padding:16px;color:var(--royal)}
+.btn.ghost{background:transparent;color:var(--royal);border:1.5px solid var(--royal)}
+.btn.ghost:hover{background:#EBF0FA}
+.btn.small{padding:7px 13px;font-size:.86rem}
+.btn:disabled{opacity:.65;cursor:default}
+.panel{background:var(--gray);border-radius:10px;padding:20px;margin-bottom:16px}
+.panel.white{background:var(--white);border:1px solid var(--border)}
+.panel.accent-navy{border-top:4px solid var(--navy);background:var(--white);border-left:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.panel.accent-red{border-top:4px solid var(--red);background:var(--white);border-left:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+label{display:block;font-weight:600;margin:12px 0 6px;color:var(--navy);font-size:.92rem}
+select,input[type=file],input[type=text],input[type=email],input[type=password],input[type=url],textarea{width:100%;padding:10px 12px;border:1px solid var(--royal);border-radius:8px;background:var(--white);color:var(--text);font:inherit}
+textarea{min-height:82px;resize:vertical}
+.hint{color:var(--royal);font-size:.88rem}
 .bar{height:16px;border-radius:999px;background:var(--white);overflow:hidden;border:1px solid var(--royal)}
-.bar span{display:block;height:100%;background:var(--royal)}
+.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--royal),var(--red));transition:width .3s ease}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 ul.list{list-style:none;padding:0;margin:0}
-ul.list li{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--white);border-radius:8px;padding:10px 12px;margin-bottom:8px}
+ul.list li{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--white);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:8px;flex-wrap:wrap}
 ul.list.have li{border-left:4px solid var(--royal)}
 ul.list.miss li{border-left:4px solid var(--red)}
 .have .m{color:var(--royal);font-weight:700}
 .miss .m{color:var(--red-deep);font-weight:700}
-.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.avatar{flex:none;width:56px;height:56px;border-radius:50%;background:var(--white);border:2px dashed var(--royal);display:grid;place-items:center;color:var(--royal);font-size:.75rem}
-.badge{display:inline-block;border:2px solid var(--royal);color:var(--royal);background:var(--white);border-radius:8px;padding:10px 14px;font-weight:600}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.between{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.avatar{flex:none;width:56px;height:56px;border-radius:50%;background:var(--navy);color:var(--white);display:grid;place-items:center;font-weight:700;font-size:1rem}
+.badge{display:inline-flex;align-items:center;gap:6px;border:2px solid var(--royal);color:var(--royal);background:var(--white);border-radius:8px;padding:9px 13px;font-weight:600;margin:0 8px 8px 0}
+.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.tab-btn{border:1.5px solid var(--royal);background:var(--white);color:var(--royal);padding:8px 16px;border-radius:8px;font:600 .92rem var(--font);cursor:pointer}
+.tab-btn.active{background:var(--navy);border-color:var(--navy);color:var(--white)}
+.tab-btn.red-active.active{background:var(--red);border-color:var(--red)}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+.stat-box{background:var(--white);border:1px solid var(--border);border-top:3px solid var(--royal);border-radius:8px;padding:12px;text-align:center}
+.stat-box.red{border-top-color:var(--red)}
+.stat-num{font-size:1.5rem;font-weight:800;color:var(--navy);line-height:1.1}
+.stat-lbl{font-size:.8rem;color:#555;margin-top:4px}
+.student-card{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--royal);border-radius:10px;padding:16px;margin-bottom:12px}
+.toast{position:fixed;bottom:20px;right:20px;background:var(--navy);color:var(--white);padding:12px 18px;border-radius:10px;border-left:5px solid var(--red);box-shadow:0 10px 28px rgba(0,0,0,.22);z-index:100;font-weight:600;max-width:360px;display:none}
+.toast.show{display:block;animation:fadeUp .2s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.muted{color:#5a6475;font-size:.9rem}
+table.data-tbl{width:100%;border-collapse:collapse;font-size:.86rem;background:var(--white);border-radius:8px;overflow:hidden}
+table.data-tbl th,table.data-tbl td{padding:8px 10px;border-bottom:1px solid var(--border);text-align:left}
+table.data-tbl th{background:var(--navy);color:var(--white)}
 footer{background:var(--navy);color:var(--white);padding:28px 0 calc(28px + env(safe-area-inset-bottom,0px))}
 footer a{color:var(--white)}
 main.wrap{flex:1 0 auto;width:100%}
 footer{flex-shrink:0}
-@media (max-width:640px){
-  .cols,.grid3{grid-template-columns:1fr}.grid4{grid-template-columns:1fr 1fr}
-  .topbar{grid-template-columns:1fr}.topbar>*{border-right:0;border-bottom:1px solid var(--royal)}.topbar>*:last-child{border-bottom:0}
+@media (max-width:740px){
+  .cols,.grid3,.grid2{grid-template-columns:1fr}.grid4,.stat-grid{grid-template-columns:1fr 1fr}
+  .topbar{grid-template-columns:1fr}.topbar>*{border-right:0;border-bottom:1px solid var(--royal);justify-content:center}.topbar>*:last-child{border-bottom:0;justify-content:center}
 }
 </style>
 </head>
@@ -92,165 +133,2291 @@ footer{flex-shrink:0}
   <div class="wrap">
     <div class="topbar">
       <div><a class="logo" href="#home" aria-label="Mesharah home"><img src="data:image/png;base64,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" alt="Mesharah logo" width="28" height="48"></a></div>
-      <nav aria-label="Screens">
-        <a href="#home">Home</a><a href="#input">Input</a><a href="#gap">Skill gap</a><a href="#task">Action</a><a href="#reward">Reward</a>
+      <nav aria-label="Screens" id="main-nav">
+        <a href="#home">Home</a>
+        <a href="#input">Input</a>
+        <a href="#gap">Skill gap</a>
+        <a href="#mentorship">Mentorship</a>
+        <a href="#task">Action</a>
+        <a href="#reward">Reward</a>
+        <a href="#student" id="nav-student" hidden>Student Page</a>
+        <a href="#mentor" id="nav-mentor" hidden>Mentor Page</a>
+        <a href="#login" id="nav-login">Login / Sign Up</a>
       </nav>
-      <div><span>[PFP] or Login<br>if not signed up</span><span class="dot" aria-label="3 notifications">3</span></div>
+      <div id="topbar-auth">
+        <a class="user-chip" href="#login" id="auth-chip">Login / Sign up</a>
+        <button type="button" class="dot" id="notif-btn" aria-label="Notifications" aria-expanded="false">3</button>
+        <div class="notif-pop" id="notif-pop" hidden>
+          <div class="between" style="margin-bottom:6px">
+            <h4 style="margin:0">Activity &amp; Alerts</h4>
+            <button type="button" class="btn small ghost" id="clear-notif" style="padding:2px 8px;font-size:.75rem">Clear</button>
+          </div>
+          <ul id="notif-list"></ul>
+        </div>
+      </div>
     </div>
   </div>
 </header>
 
 <main class="wrap">
 
-<!-- Home -->
+<!-- Screen 1: Home -->
 <section class="screen" id="screen-home">
   <div class="debugbar">
-    <span class="dbg">DEBUG</span>
+    <div class="row">
+      <span class="dbg">LIVE DEMO</span>
+      <span class="muted" id="home-session-banner">Viewing as Guest &middot; Sign in as Student or Mentor to unlock personalized pages</span>
+    </div>
     <button type="button" class="btn secondary small" id="toggle-view" aria-pressed="false">Switch to hero text view</button>
   </div>
+
   <div id="view-hook">
-  <div class="hero">
-    <h1>FROM UNIVERSITY TO INDUSTRY</h1>
-    <p>Don’t just search for jobs. Build the exact skills employers in Jordan and the GCC are looking for.</p>
-    <a class="btn" href="#input">Start Your Free Career Plan</a>
-    <img class="hero-img" src="Gemini_Generated_Image_3yenss3yenss3yen-Photoroom.png" alt="Student looking at a career roadmap" width="2400" height="1340">
+    <div class="hero">
+      <h1>FROM UNIVERSITY TO INDUSTRY</h1>
+      <p>Don’t just search for jobs. Build the exact skills employers in Jordan and the GCC are looking for.</p>
+      <div class="row" style="justify-content:center">
+        <a class="btn" href="#input">Start Your Free Career Plan</a>
+        <a class="btn secondary" href="#login" id="hero-login-btn">Login / Sign Up (Student or Mentor)</a>
+      </div>
+      <img class="hero-img" src="Gemini_Generated_Image_3yenss3yenss3yen-Photoroom.png" alt="Student looking at a career roadmap" width="2400" height="1340">
+    </div>
   </div>
-  </div>
+
   <div id="view-wire" hidden>
     <div class="hero">
       <h1>FROM UNIVERSITY TO INDUSTRY</h1>
       <p>Don’t just search for jobs. Build the exact skills employers in Jordan and the GCC are looking for.</p>
-    </div>
-    <div class="quick">
-      <h2>[Target Job Title]</h2>
-      <div class="panel">
-        <p><strong>You are 65% a match for this role</strong></p>
-        <div class="bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"><span style="width:65%"></span></div>
-        <p style="margin:14px 0 0"><a href="#gap">See your full skill gap</a></p>
+      <div class="row" style="justify-content:center;margin-top:12px" id="wire-actions">
+        <a class="btn small" href="#mentorship">Start Mentorship Tasks</a>
+        <a class="btn small secondary" href="#student" id="wire-dashboard-btn" hidden>Open My Dashboard</a>
       </div>
     </div>
-    <h2 class="center" style="font-size:1.1rem;margin-top:24px">[Last 4 parts of your mentorship accessed]</h2>
-    <div class="grid4">
-      <div class="card center">[Tracker]</div>
-      <div class="card center">[Tracker]</div>
-      <div class="card center">[Tracker]</div>
-      <div class="card center">[Tracker]</div>
+    <div class="quick">
+      <h2 id="wire-job-title">Mechanical Maintenance Engineer</h2>
+      <div class="panel">
+        <p><strong id="wire-match-text">Progress track: 0% (0 tasks completed)</strong></p>
+        <div class="bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"><span id="wire-match-bar" style="width:0%"></span></div>
+        <p style="margin:14px 0 0"><a href="#gap">See your full skill gap</a> &middot; <a href="#mentorship">Mark a mini-task completed</a></p>
+      </div>
+    </div>
+    <h2 class="center" style="font-size:1.1rem;margin-top:24px">Task Progress Tracker</h2>
+    <div class="grid4" id="wire-tracker"></div>
+  </div>
+
+  <div class="between" style="margin-top:28px">
+    <div>
+      <h2 style="margin-bottom:4px">Featured Industry Mentors</h2>
+      <p class="muted" style="margin:0">Learn from engineers and tech leads across Jordan &amp; the GCC</p>
+    </div>
+    <button type="button" class="btn ghost small" id="toggle-all-mentors">See all mentors</button>
+  </div>
+
+  <div class="grid3" id="home-mentors-grid"></div>
+
+  <div class="panel accent-navy" style="margin-top:12px" id="home-courses-tips-panel">
+    <div class="between">
+      <div>
+        <h3 style="margin-bottom:4px">Mentor Courses &amp; Tips</h3>
+        <p class="muted" style="margin:0" id="home-ct-subtitle">Only appears after you choose your mentor</p>
+      </div>
+      <div class="row">
+        <button type="button" class="btn ghost small" id="home-leave-mentor-btn" hidden>Leave Chosen Mentor</button>
+        <a class="btn secondary small" href="#login" id="home-role-cta">Sign in to Contribute or Save</a>
+      </div>
+    </div>
+    <p id="home-ct-locked" class="muted" style="margin:12px 0 0">Choose <strong>one mentor</strong> above to reveal their recommended courses and tips.</p>
+    <div class="cols" style="margin-top:14px" id="home-courses-tips-cols" hidden>
+      <div>
+        <strong style="color:var(--navy)">Recommended Course Links</strong>
+        <ul class="list" id="home-courses-preview" style="margin-top:8px"></ul>
+      </div>
+      <div>
+        <strong style="color:var(--navy)">Mentor Tips</strong>
+        <ul class="list" id="home-tips-preview" style="margin-top:8px"></ul>
+      </div>
     </div>
   </div>
-  <div class="grid3">
-    <div class="card tall"><strong>[Mentorship card]</strong><p>[Small description]</p><p class="tags">Targeted skills: [skill] [skill]</p></div>
-    <div class="card tall"><strong>[Mentorship card]</strong><p>[Small description]</p><p class="tags">Targeted skills: [skill] [skill]</p></div>
-    <div class="card tall"><strong>[Mentorship card]</strong><p>[Small description]</p><p class="tags">Targeted skills: [skill] [skill]</p></div>
-  </div>
-  <p class="center"><a class="btn" href="#home">See more</a></p>
 </section>
 
 <!-- Screen 2: Input -->
 <section class="screen" id="screen-input">
   <h2>Quick onboarding</h2>
-  <div class="panel">
+  <p class="muted">Select your major and target role to calculate your Jordan/GCC readiness roadmap.</p>
+  <div class="panel accent-navy">
     <label for="major">What is your Major?</label>
-    <select id="major"><option>[Select major]</option><option>Mechanical Engineering</option></select>
+    <select id="major"></select>
+
     <label for="job">What is your Target Job?</label>
-    <select id="job"><option>[Select target job]</option><option>Mechanical Maintenance Engineer</option></select>
+    <select id="job"></select>
+
     <label for="cv">Upload CV (Optional – for smart skill matching)</label>
-    <input type="file" id="cv">
-    <p style="margin-top:20px"><a class="btn" href="#gap">Generate My Roadmap</a></p>
+    <input type="file" id="cv" accept=".pdf,.doc,.docx,.txt">
+    <p class="hint" id="cv-status" style="margin-top:8px">No CV attached yet — we will match using your major baseline skills.</p>
+
+    <p style="margin-top:20px" class="row">
+      <button type="button" class="btn" id="generate-roadmap-btn">Generate My Roadmap</button>
+      <a class="btn ghost" href="#gap">View Current Roadmap</a>
+    </p>
   </div>
 </section>
 
 <!-- Screen 3: Skill gap -->
 <section class="screen" id="screen-gap">
-  <h2>[Target Job Title]</h2>
+  <div class="between">
+    <div>
+      <h2 id="gap-job-title">Target Job Title</h2>
+      <p class="muted" id="gap-student-meta" style="margin-top:-6px"></p>
+    </div>
+    <a class="btn ghost small" href="#input">Change Major / Role</a>
+  </div>
   <div class="panel">
-    <p><strong>You are 65% a match for this role</strong></p>
-    <div class="bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"><span style="width:65%"></span></div>
+    <p><strong id="gap-match-text">You are 50% a match for this role</strong></p>
+    <div class="bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"><span id="gap-match-bar" style="width:50%"></span></div>
   </div>
   <div class="cols">
     <div class="panel">
       <h3>What you have</h3>
-      <ul class="list have">
-        <li><span><span class="m">[✓]</span> Skill</span></li>
-        <li><span><span class="m">[✓]</span> Skill</span></li>
-      </ul>
+      <ul class="list have" id="gap-have-list"></ul>
     </div>
     <div class="panel">
       <h3>What you are missing</h3>
-      <ul class="list miss">
-        <li><span><span class="m">[!]</span> Skill</span><a class="btn small" href="#task">Fill the Gaps</a></li>
-        <li><span><span class="m">[!]</span> Skill</span><a class="btn small" href="#task">Fill the Gaps</a></li>
-      </ul>
+      <ul class="list miss" id="gap-miss-list"></ul>
     </div>
   </div>
 </section>
 
 <!-- Screen 4: Action -->
 <section class="screen" id="screen-task">
-  <h2>[Skill being proven]</h2>
-  <div class="panel">
-    <h3>Mini-Task</h3>
-    <p>[Short task brief]</p>
-    <label for="work">Upload work</label>
-    <input type="file" id="work">
+  <div class="between">
+    <h2 id="task-skill-title">Skill being proven</h2>
+    <a class="btn ghost small" href="#gap">&larr; Back to Skill Gap</a>
   </div>
-  <div class="panel row">
-    <div class="avatar">[Photo]</div>
-    <div><strong style="color:var(--navy)">[Mentor name]</strong><br>[Title, Company]</div>
+  <div class="panel accent-red">
+    <div class="between" style="margin-bottom:8px">
+      <h3 style="margin:0" id="task-title-heading">Mini-Task Brief</h3>
+      <span class="tag" id="task-prereq-badge">Open Task</span>
+    </div>
+    <p id="task-brief"></p>
+    <div id="task-lock-notice" class="panel" style="background:#FFF5F5;border:1px solid #F5C2C7;margin:10px 0" hidden>
+      <strong style="color:var(--red-deep)">🔒 Course Prerequisite Required</strong>
+      <p id="task-lock-text" style="margin:6px 0 10px"></p>
+      <a class="btn small secondary" href="#mentorship">Go to Mentorship Courses to Complete</a>
+    </div>
+    <label for="work">Upload work (PDF, CAD, ZIP, or screenshot)</label>
+    <input type="file" id="work">
+    <label for="work-note">Submission note or portfolio link</label>
+    <textarea id="work-note" placeholder="Briefly describe your approach or paste a GitHub / Drive link..."></textarea>
+  </div>
+  <div class="panel white">
+    <div class="between" style="margin-bottom:10px">
+      <h3 style="margin:0">Assigned Industry Mentor</h3>
+      <div style="min-width:220px">
+        <select id="task-mentor-select" aria-label="Choose mentor"></select>
+      </div>
+    </div>
+    <div class="row" id="task-mentor-card"></div>
   </div>
   <p class="row">
-    <a class="btn" href="#reward">Book 15-Min Review with [Mentor] ([Price])</a>
-    <a class="btn secondary" href="#reward">Submit for Free Written Feedback</a>
+    <button type="button" class="btn" id="btn-book-review">Book 15-Min Review</button>
+    <button type="button" class="btn secondary" id="btn-free-feedback">Submit for Free Written Feedback</button>
   </p>
 </section>
 
 <!-- Screen 5: Reward -->
 <section class="screen" id="screen-reward">
   <h2>Verified profile</h2>
-  <p><span class="badge">[Badge] [Skill]: Verified by Industry Mentor</span></p>
+  <div id="reward-badges" style="margin-bottom:14px"></div>
   <div class="panel">
-    <p><strong>Updated readiness: 90%</strong></p>
-    <div class="bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"><span style="width:90%"></span></div>
+    <p><strong id="reward-readiness-text">Updated readiness: 50%</strong></p>
+    <div class="bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"><span id="reward-readiness-bar" style="width:50%"></span></div>
   </div>
-  <div class="panel">
-    <h3>Matching jobs</h3>
-    <ul class="list">
-      <li>[Job title – Company – Location] <a class="btn small" href="#reward">Apply with Verified Profile</a></li>
-      <li>[Job title – Company – Location] <a class="btn small" href="#reward">Apply with Verified Profile</a></li>
-      <li>[Job title – Company – Location] <a class="btn small" href="#reward">Apply with Verified Profile</a></li>
-    </ul>
+  <div class="panel white">
+    <h3>Matching jobs in Jordan &amp; GCC</h3>
+    <ul class="list" id="reward-jobs-list"></ul>
+  </div>
+  <p class="row">
+    <a class="btn secondary" href="#gap">Prove Another Skill</a>
+    <a class="btn ghost" href="#student" id="reward-to-student" hidden>Go to My Student Page</a>
+  </p>
+</section>
+
+<!-- Screen 6: Login / Sign Up (Temp Auth + Dummy Data Store) -->
+<section class="screen" id="screen-login">
+  <div class="between">
+    <div>
+      <h2>Temp Login &amp; Sign Up</h2>
+      <p class="muted">Choose <strong>Student</strong> or <strong>Mentor</strong>. Every login or sign-up is added directly to the live dummy data.</p>
+    </div>
+    <button type="button" class="btn ghost small" id="reset-demo-btn">Reset Dummy Data</button>
+  </div>
+
+  <div class="cols">
+    <div class="panel accent-navy">
+      <div class="tabs" role="tablist" aria-label="Account role">
+        <button type="button" class="tab-btn active" id="role-tab-student" data-role="student">Student Account</button>
+        <button type="button" class="tab-btn red-active" id="role-tab-mentor" data-role="mentor">Mentor Account</button>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Auth mode">
+        <button type="button" class="tab-btn active" id="mode-tab-login" data-mode="login">Temp Login</button>
+        <button type="button" class="tab-btn" id="mode-tab-signup" data-mode="signup">Sign Up (New)</button>
+      </div>
+
+      <form id="auth-form">
+        <div id="auth-name-wrap">
+          <label for="auth-name">Full Name <span class="muted" id="auth-name-hint">(optional for existing email, saved if new)</span></label>
+          <input type="text" id="auth-name" placeholder="e.g. Layla Mansour">
+        </div>
+
+        <label for="auth-email">Email</label>
+        <input type="email" id="auth-email" required placeholder="e.g. layla@university.edu.jo">
+
+        <label for="auth-pass">Password</label>
+        <input type="password" id="auth-pass" required value="1234" placeholder="Any temp password">
+
+        <div id="signup-student-fields" hidden>
+          <label for="signup-major">Major</label>
+          <select id="signup-major"></select>
+          <label for="signup-job">Target Job</label>
+          <select id="signup-job"></select>
+        </div>
+
+        <div id="signup-mentor-fields" hidden>
+          <label for="signup-title">Job Title &amp; Company</label>
+          <input type="text" id="signup-title" placeholder="e.g. Senior Civil Engineer, Dar Al-Handasah">
+          <label for="signup-location">Location</label>
+          <input type="text" id="signup-location" placeholder="e.g. Amman, Jordan / Dubai, UAE">
+          <label for="signup-skills">Target Skills (comma-separated)</label>
+          <input type="text" id="signup-skills" placeholder="e.g. Structural Analysis, Revit, Project Management">
+          <label for="signup-bio">Short Mentor Description</label>
+          <textarea id="signup-bio" placeholder="Briefly describe your industry background and how you help graduates..."></textarea>
+        </div>
+
+        <p style="margin-top:16px">
+          <button type="submit" class="btn" id="auth-submit-btn">Login as Student</button>
+        </p>
+      </form>
+    </div>
+
+    <div>
+      <div class="panel accent-red">
+        <h3>1-Click Temp Logins (Dummy Accounts)</h3>
+        <p class="muted" style="margin-top:0">Jump straight into either user page, or test adding a new email on the left.</p>
+        <strong style="color:var(--navy);font-size:.9rem">Students</strong>
+        <div class="row" id="quick-students" style="margin:8px 0 14px"></div>
+        <strong style="color:var(--navy);font-size:.9rem">Mentors</strong>
+        <div class="row" id="quick-mentors" style="margin:8px 0 4px"></div>
+      </div>
+
+      <div class="panel white">
+        <h3>Live Dummy Data Log (Logins &amp; Sign Ups)</h3>
+        <p class="muted" style="margin-top:0">Updates automatically whenever someone logs in or signs up.</p>
+        <div style="overflow-x:auto">
+          <table class="data-tbl">
+            <thead><tr><th>Action</th><th>Role</th><th>Name</th><th>Email</th></tr></thead>
+            <tbody id="login-log-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Screen 7: Student User Page -->
+<section class="screen" id="screen-student">
+  <div id="student-guard" class="panel accent-red" hidden>
+    <h3>Sign in as a Student to view your Student Page</h3>
+    <p>You can sign up as a new student or use a 1-click temp student login.</p>
+    <a class="btn" href="#login">Go to Temp Login / Sign Up</a>
+  </div>
+
+  <div id="student-dashboard" hidden>
+    <div class="panel accent-navy">
+      <div class="between">
+        <div class="row">
+          <img id="st-avatar" class="mentor-img lg" alt="Student avatar">
+          <div>
+            <div class="row" style="gap:8px">
+              <h2 id="st-name" style="margin:0">Student Name</h2>
+              <span class="role-pill student">Student</span>
+            </div>
+            <div class="muted" id="st-meta"></div>
+          </div>
+        </div>
+        <div class="row">
+          <a class="btn secondary small" href="#input">Update Major / Role</a>
+          <a class="btn small" href="#gap">View Skill Gap</a>
+          <button type="button" class="btn ghost small logout-btn">Log Out</button>
+        </div>
+      </div>
+      <div style="margin-top:14px">
+        <div class="between" style="margin-bottom:6px">
+          <strong id="st-readiness-label">Career Readiness: 50%</strong>
+          <span class="muted" id="st-target-job"></span>
+        </div>
+        <div class="bar"><span id="st-readiness-bar" style="width:50%"></span></div>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><div class="stat-num" id="st-stat-have">0</div><div class="stat-lbl">Skills You Have</div></div>
+      <div class="stat-box red"><div class="stat-num" id="st-stat-miss">0</div><div class="stat-lbl">Gaps Remaining</div></div>
+      <div class="stat-box"><div class="stat-num" id="st-stat-verified">0</div><div class="stat-lbl">Verified Badges</div></div>
+      <div class="stat-box red"><div class="stat-num" id="st-stat-applied">0</div><div class="stat-lbl">Applied Jobs</div></div>
+    </div>
+
+    <div class="cols">
+      <div class="panel white">
+        <h3>My Missing Skills &amp; Submissions</h3>
+        <ul class="list miss" id="st-missing-list"></ul>
+        <h3 style="margin-top:16px">Task Submissions &amp; Feedback</h3>
+        <ul class="list" id="st-submissions-list"></ul>
+      </div>
+
+      <div class="panel white">
+        <h3>Recommended Courses from Mentors</h3>
+        <ul class="list" id="st-courses-list"></ul>
+        <h3 style="margin-top:16px">Latest Mentor Tips</h3>
+        <ul class="list" id="st-tips-list"></ul>
+      </div>
+    </div>
+
+    <div class="panel white">
+      <div class="between">
+        <h3 style="margin:0">Industry Mentorships</h3>
+        <span class="muted">Click Start Mentorship to view each mentor’s courses &amp; mini-tasks</span>
+      </div>
+      <div class="grid3" id="st-mentors-grid" style="margin-bottom:0"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Screen 7b: Mentor Mentorship Hub -->
+<section class="screen" id="screen-mentorship">
+  <div class="between" style="margin-bottom:12px">
+    <h2 style="margin:0">Mentorship Track</h2>
+    <div class="row">
+      <div style="min-width:220px">
+        <select id="ms-mentor-select" aria-label="Switch mentor"></select>
+      </div>
+      <a class="btn ghost small" href="#home">All Mentors</a>
+    </div>
+  </div>
+
+  <div class="panel accent-navy" id="ms-mentor-header"></div>
+
+  <div class="panel accent-red" id="ms-locked-notice" hidden>
+    <h3 style="margin-bottom:6px">Courses &amp; Tips Locked</h3>
+    <p id="ms-locked-msg" style="margin:0 0 10px"></p>
+    <div class="row" id="ms-locked-actions"></div>
+  </div>
+
+  <div class="cols" id="ms-courses-tips-cols">
+    <div class="panel white">
+      <div class="between" style="margin-bottom:8px">
+        <h3 style="margin:0">Recommended Courses</h3>
+        <span class="muted" id="ms-course-progress">0 completed</span>
+      </div>
+      <p class="muted" style="margin-top:0">Complete required courses below to unlock course-gated mini-tasks.</p>
+      <ul class="list" id="ms-courses-list"></ul>
+    </div>
+
+    <div class="panel white">
+      <div class="between" style="margin-bottom:8px">
+        <h3 style="margin:0">Mentor Tips</h3>
+      </div>
+      <p class="muted" style="margin-top:0">Advice published by this mentor.</p>
+      <ul class="list" id="ms-tips-list"></ul>
+    </div>
+  </div>
+
+  <div class="panel accent-red" id="ms-tasks-panel">
+    <div class="between" style="margin-bottom:8px">
+      <div>
+        <h3 style="margin:0">Mini-Tasks in This Mentorship</h3>
+        <p class="muted" style="margin:2px 0 0">Some mini-tasks are open immediately; others require finishing a recommended course first.</p>
+      </div>
+    </div>
+    <div id="ms-tasks-list"></div>
+  </div>
+</section>
+
+<!-- Screen 8: Mentor User Page -->
+<section class="screen" id="screen-mentor">
+  <div id="mentor-guard" class="panel accent-red" hidden>
+    <h3>Sign in as a Mentor to access the Mentor Workspace</h3>
+    <p>Log in with a Mentor account or create a new Mentor profile to publish course links, career tips, and verify students.</p>
+    <a class="btn" href="#login">Go to Mentor Login / Sign Up</a>
+  </div>
+
+  <div id="mentor-dashboard" hidden>
+    <div class="panel accent-red">
+      <div class="between">
+        <div class="row">
+          <img id="mt-avatar" class="mentor-img lg" alt="Mentor portrait">
+          <div>
+            <div class="row" style="gap:8px">
+              <h2 id="mt-name" style="margin:0">Mentor Name</h2>
+              <span class="role-pill">Mentor</span>
+            </div>
+            <div class="muted" id="mt-title-loc"></div>
+            <div class="tags" id="mt-skills-tags" style="margin:6px 0 0"></div>
+          </div>
+        </div>
+        <div class="row">
+          <button type="button" class="btn ghost small" id="mt-edit-bio-btn">Edit Description</button>
+          <button type="button" class="btn ghost small logout-btn">Log Out</button>
+        </div>
+      </div>
+      <p id="mt-bio" style="margin:12px 0 0"></p>
+      <div id="mt-edit-bio-box" hidden style="margin-top:12px">
+        <textarea id="mt-bio-input"></textarea>
+        <p class="row" style="margin-top:8px">
+          <button type="button" class="btn small" id="mt-save-bio-btn">Save Description</button>
+          <button type="button" class="btn ghost small" id="mt-cancel-bio-btn">Cancel</button>
+        </p>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><div class="stat-num" id="mt-stat-students">0</div><div class="stat-lbl">Active Students</div></div>
+      <div class="stat-box red"><div class="stat-num" id="mt-stat-courses">0</div><div class="stat-lbl">Course Links</div></div>
+      <div class="stat-box"><div class="stat-num" id="mt-stat-tips">0</div><div class="stat-lbl">Published Tips</div></div>
+      <div class="stat-box red"><div class="stat-num" id="mt-stat-pending">0</div><div class="stat-lbl">Pending Reviews</div></div>
+    </div>
+
+    <div class="cols">
+      <!-- Add Links to Courses -->
+      <div class="panel white">
+        <h3>Course Links</h3>
+        <p class="muted" style="margin-top:0">Share recommended courses that appear on student dashboards.</p>
+        <form id="add-course-form">
+          <label for="course-title">Course Title</label>
+          <input type="text" id="course-title" required placeholder="e.g. Industrial PLC Programming">
+          <label for="course-url">Course Link (URL)</label>
+          <input type="url" id="course-url" required placeholder="https://www.coursera.org/...">
+          <div class="cols">
+            <div>
+              <label for="course-platform">Platform</label>
+              <input type="text" id="course-platform" required placeholder="Coursera / Udemy / YouTube">
+            </div>
+            <div>
+              <label for="course-skill">Target Skill</label>
+              <input type="text" id="course-skill" required placeholder="e.g. PLC &amp; SCADA">
+            </div>
+          </div>
+          <label for="course-desc">Short Description</label>
+          <input type="text" id="course-desc" placeholder="Why this helps graduates in Jordan/GCC">
+          <p style="margin-top:12px"><button type="submit" class="btn small">Add Course Link</button></p>
+        </form>
+        <hr style="border:0;border-top:1px solid var(--border);margin:14px 0">
+        <ul class="list" id="mt-courses-list"></ul>
+      </div>
+
+      <!-- Add Tips -->
+      <div class="panel white">
+        <h3>Mentor Tips</h3>
+        <p class="muted" style="margin-top:0">Post practical advice for CVs, interviews, and portfolio projects.</p>
+        <form id="add-tip-form">
+          <label for="tip-title">Tip Headline</label>
+          <input type="text" id="tip-title" required placeholder="e.g. Highlight safety compliance on your CV">
+          <label for="tip-category">Category / Skill Tag</label>
+          <input type="text" id="tip-category" required placeholder="e.g. CV &amp; Interviews / Maintenance">
+          <label for="tip-content">Tip Details</label>
+          <textarea id="tip-content" required placeholder="Write actionable advice for students..."></textarea>
+          <p style="margin-top:12px"><button type="submit" class="btn secondary small">Publish Tip</button></p>
+        </form>
+        <hr style="border:0;border-top:1px solid var(--border);margin:14px 0">
+        <ul class="list" id="mt-tips-list"></ul>
+      </div>
+    </div>
+
+    <!-- Add & Manage Mentorship Mini-Tasks -->
+    <div class="panel accent-red">
+      <h3>Mentorship Mini-Tasks (Open or Course-Required)</h3>
+      <p class="muted" style="margin-top:0">Create mini-tasks for your mentorship. Choose whether students must complete one of your recommended courses first.</p>
+      <form id="add-task-form">
+        <div class="cols">
+          <div>
+            <label for="mt-task-title">Mini-Task Title</label>
+            <input type="text" id="mt-task-title" required placeholder="e.g. Centrifugal Pump Vibration Audit">
+          </div>
+          <div>
+            <label for="mt-task-skill">Target Skill</label>
+            <input type="text" id="mt-task-skill" required placeholder="e.g. Preventive Maintenance">
+          </div>
+        </div>
+        <label for="mt-task-prereq">Course Prerequisite</label>
+        <select id="mt-task-prereq"></select>
+        <label for="mt-task-brief">Mini-Task Brief</label>
+        <textarea id="mt-task-brief" required placeholder="Describe what the student needs to build or submit..."></textarea>
+        <p style="margin-top:12px"><button type="submit" class="btn small">Add Mini-Task to Mentorship</button></p>
+      </form>
+      <hr style="border:0;border-top:1px solid var(--border);margin:14px 0">
+      <ul class="list" id="mt-tasks-list"></ul>
+    </div>
+
+    <!-- List of Students -->
+    <div class="panel accent-navy">
+      <div class="between" style="margin-bottom:12px">
+        <div>
+          <h3 style="margin:0">List of Students</h3>
+          <p class="muted" style="margin:2px 0 0">Includes all dummy students and anyone who logs in or signs up as a Student.</p>
+        </div>
+        <div style="min-width:240px">
+          <input type="text" id="mt-student-search" placeholder="Filter students by name, major, or email...">
+        </div>
+      </div>
+      <div id="mt-students-list"></div>
+    </div>
   </div>
 </section>
 
 </main>
 
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <footer>
   <div class="wrap">
     <p style="margin:0 0 8px;letter-spacing:.04em"><strong>Mesharah</strong> &nbsp;|&nbsp; FROM UNIVERSITY TO INDUSTRY • <span lang="ar" dir="rtl">من الجامعة إلى سوق العمل</span></p>
-    [Footer] <a href="#home">Home</a> · [Contact] · [Terms]
+    <a href="#home">Home</a> · <a href="#input">Career Plan</a> · <a href="#login">Temp Login / Sign Up</a> · <a href="#student">Student Page</a> · <a href="#mentor">Mentor Page</a>
   </div>
 </footer>
 
 <script>
 (function(){
-  var ids=["home","input","gap","task","reward"];
+  var STORAGE_KEY = "mesharah_dummy_db_v4";
+
+  function esc(str){
+    return String(str == null ? "" : str)
+      .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+  }
+
+  function safeUrl(raw){
+    var u = String(raw || "").trim();
+    if(!u) return "#";
+    if(/^https?:\/\//i.test(u)) return u;
+    if(/^[a-z0-9.-]+\.[a-z]{2,}/i.test(u)) return "https://" + u;
+    return "#";
+  }
+
+  function makePortrait(opts){
+    var bg = opts.bg || "#EBF0FA";
+    var coat = opts.coat || "#163166";
+    var accent = opts.accent || "#E62332";
+    var skin = opts.skin || "#E8B89A";
+    var hair = opts.hair || "#1E2430";
+    var hijab = !!opts.hijab;
+    var glasses = !!opts.glasses;
+    var beard = !!opts.beard;
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">'
+      + '<rect width="120" height="120" rx="60" fill="'+bg+'"/>'
+      + '<circle cx="96" cy="24" r="14" fill="'+accent+'" fill-opacity="0.16"/>'
+      + '<path d="M22 120 C24 88 42 80 60 80 C78 80 96 88 98 120 Z" fill="'+coat+'"/>'
+      + '<path d="M50 80 L60 98 L70 80 Z" fill="#FFFFFF"/>'
+      + '<rect x="57" y="88" width="6" height="18" rx="3" fill="'+accent+'"/>';
+    if(hijab){
+      svg += '<path d="M28 62 C28 30 92 30 92 62 C92 84 82 96 60 96 C38 96 28 84 28 62 Z" fill="'+coat+'"/>';
+      svg += '<path d="M31 64 C31 35 89 35 89 64" fill="none" stroke="'+accent+'" stroke-width="3"/>';
+    } else {
+      svg += '<path d="M34 52 C34 26 86 26 86 52 L84 42 C72 34 48 34 36 42 Z" fill="'+hair+'"/>';
+    }
+    svg += '<rect x="52" y="70" width="16" height="14" rx="6" fill="'+skin+'"/>'
+      + '<ellipse cx="60" cy="54" rx="20" ry="23" fill="'+skin+'"/>';
+    if(!hijab){
+      svg += '<path d="M38 48 C40 31 80 31 82 48 C74 39 46 39 38 48 Z" fill="'+hair+'"/>';
+    }
+    svg += '<circle cx="52" cy="54" r="2.6" fill="#1E2430"/>'
+      + '<circle cx="68" cy="54" r="2.6" fill="#1E2430"/>'
+      + '<path d="M53 65 Q60 70 67 65" fill="none" stroke="#8C4A3B" stroke-width="2.4" stroke-linecap="round"/>';
+    if(beard){
+      svg += '<path d="M43 60 C44 74 52 79 60 79 C68 79 76 74 77 60 C72 68 66 71 60 71 C54 71 48 68 43 60 Z" fill="'+hair+'" fill-opacity="0.88"/>';
+    }
+    if(glasses){
+      svg += '<rect x="44" y="48" width="14" height="11" rx="3" fill="none" stroke="#163166" stroke-width="2"/>'
+        + '<rect x="62" y="48" width="14" height="11" rx="3" fill="none" stroke="#163166" stroke-width="2"/>'
+        + '<line x1="58" y1="53" x2="62" y2="53" stroke="#163166" stroke-width="2"/>';
+    }
+    svg += '</svg>';
+    return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
+  }
+
+  function makeInitialsAvatar(name, isMentor){
+    var parts = (name || "U").trim().split(/\s+/);
+    var ini = (parts[0][0] + (parts[1] ? parts[1][0] : "")).toUpperCase();
+    var bg = isMentor ? "#E62332" : "#214793";
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">'
+      + '<rect width="120" height="120" rx="60" fill="'+bg+'"/>'
+      + '<text x="60" y="72" text-anchor="middle" fill="#FFFFFF" font-family="system-ui,Arial,sans-serif" font-size="42" font-weight="700">'+ini+'</text>'
+      + '</svg>';
+    return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
+  }
+
+  var TRACKS = {
+    "Mechanical Engineering": {
+      baseline: ["Thermodynamics", "SolidWorks CAD", "Fluid Mechanics"],
+      jobs: {
+        "Mechanical Maintenance Engineer": {
+          required: ["Thermodynamics", "SolidWorks CAD", "Fluid Mechanics", "Preventive Maintenance", "Root Cause Analysis", "ISO Safety Standards"],
+          jobs: [
+            "Junior Maintenance Engineer – Jordan Phosphate Mines – Aqaba",
+            "Reliability Engineer – SABIC – Jubail, KSA",
+            "Plant Operations Trainee – Lafarge – Amman"
+          ]
+        },
+        "Automation & Controls Engineer": {
+          required: ["Thermodynamics", "SolidWorks CAD", "PLC & SCADA", "ISO Safety Standards", "Process Optimization"],
+          jobs: [
+            "Automation Grad Engineer – ACWA Power – Riyadh",
+            "Controls Systems Specialist – Hikma Pharmaceuticals – Amman",
+            "HVAC Controls Engineer – Dar Al-Handasah – Dubai"
+          ]
+        }
+      }
+    },
+    "Computer Science": {
+      baseline: ["JavaScript & HTML", "Git & GitHub", "Data Structures"],
+      jobs: {
+        "Backend Software Engineer": {
+          required: ["JavaScript & HTML", "Git & GitHub", "Data Structures", "Node.js & APIs", "SQL Optimization", "System Design"],
+          jobs: [
+            "Junior Backend Developer – Arab Bank – Amman",
+            "Software Engineer I – Careem – Dubai",
+            "API Platform Associate – STC Pay – Riyadh"
+          ]
+        },
+        "Full-Stack Web Developer": {
+          required: ["JavaScript & HTML", "Git & GitHub", "Node.js & APIs", "SQL Optimization", "UI Accessibility"],
+          jobs: [
+            "Frontend & API Developer – Mawdoo3 – Amman",
+            "Junior Product Engineer – Tamara – Riyadh",
+            "Web Application Developer – Etisalat Digital – Abu Dhabi"
+          ]
+        }
+      }
+    },
+    "Data Science & AI": {
+      baseline: ["Excel & Statistics", "SQL Basics"],
+      jobs: {
+        "Junior Data Analyst": {
+          required: ["Excel & Statistics", "SQL Basics", "Python & Pandas", "Power BI", "A/B Testing"],
+          jobs: [
+            "BI & Data Analyst – Zain Jordan – Amman",
+            "Growth Data Analyst – Noon – Dubai",
+            "Analytics Associate – Aramex – Amman"
+          ]
+        }
+      }
+    }
+  };
+
+  var SKILL_TASKS = {
+    "Preventive Maintenance": "Inspect a centrifugal pump schedule and write a 5-point weekly vibration, seal, and lubrication checklist.",
+    "Root Cause Analysis": "Given an unplanned conveyor motor trip, complete a 5-Whys & Fishbone diagram identifying mechanical vs electrical root causes.",
+    "ISO Safety Standards": "Draft a Lockout/Tagout (LOTO) & PPE hazard checklist for a high-pressure boiler inspection.",
+    "PLC & SCADA": "Design a ladder-logic sequence for a dual-tank automated fill valve with high-level alarm interlock.",
+    "Process Optimization": "Analyze a 3-station assembly bottleneck and propose a line-balancing change reducing cycle time by 15%.",
+    "Node.js & APIs": "Build or outline a REST endpoint for /applications with input validation, status codes, and JWT auth middleware.",
+    "SQL Optimization": "Rewrite a slow JOIN query on 500k job records using proper composite indexes and EXPLAIN analysis.",
+    "System Design": "Sketch the architecture for a mentorship booking queue handling 10k concurrent Jordan/GCC students.",
+    "UI Accessibility": "Audit a signup form and fix keyboard focus order, ARIA labels, and color contrast ratios.",
+    "Python & Pandas": "Clean a messy hiring CSV (missing dates, duplicate emails) and compute readiness conversion per major.",
+    "Power BI": "Design a 3-KPI executive dashboard comparing graduate skill readiness across Amman, Riyadh, and Dubai.",
+    "A/B Testing": "Define sample size, null hypothesis, and primary conversion metric for testing mentor feedback turnaround."
+  };
+
+  function createSeedData(){
+    return {
+      mentors: [
+        {
+          id: "m1",
+          name: "Eng. Tariq Al-Masri",
+          email: "tariq@mentor.mesharah.jo",
+          pass: "1234",
+          title: "Senior Maintenance Lead, Jordan Phosphate Mines Co.",
+          location: "Amman, Jordan",
+          price: "15 JOD",
+          skills: ["Preventive Maintenance", "Root Cause Analysis", "ISO Safety Standards"],
+          description: "12+ years leading preventive maintenance, rotating equipment reliability, and shutdown planning across Jordan & KSA industrial plants.",
+          avatar: makePortrait({bg:"#EBF0FA",coat:"#163166",accent:"#E62332",skin:"#DFAA86",hair:"#1F2530",glasses:true,beard:true})
+        },
+        {
+          id: "m2",
+          name: "Eng. Lina Al-Khatib",
+          email: "lina@mentor.mesharah.jo",
+          pass: "1234",
+          title: "Lead Controls & Automation Engineer, ACWA Power",
+          location: "Riyadh / Amman",
+          price: "12 JOD",
+          skills: ["PLC & SCADA", "ISO Safety Standards", "Process Optimization"],
+          description: "Specializes in PLC/SCADA commissioning, industrial safety compliance, and preparing mechanical & electrical graduates for GCC energy roles.",
+          avatar: makePortrait({bg:"#FDEBED",coat:"#214793",accent:"#E62332",skin:"#ECC0A3",hijab:true})
+        },
+        {
+          id: "m3",
+          name: "Omar Haddad",
+          email: "omar@mentor.mesharah.jo",
+          pass: "1234",
+          title: "Principal Backend Architect, Mawdoo3 & Careem Alum",
+          location: "Amman / Dubai",
+          price: "18 JOD",
+          skills: ["Node.js & APIs", "SQL Optimization", "System Design", "UI Accessibility"],
+          description: "Mentored 80+ CS graduates into regional engineering teams. Focuses on clean REST APIs, database tuning, and production-grade portfolios.",
+          avatar: makePortrait({bg:"#EBF0FA",coat:"#214793",accent:"#E62332",skin:"#E5B494",hair:"#1A1D24",beard:true})
+        },
+        {
+          id: "m4",
+          name: "Dr. Salma Darwish",
+          email: "salma@mentor.mesharah.jo",
+          pass: "1234",
+          title: "Data & BI Strategy Manager, Zain Jordan",
+          location: "Amman, Jordan",
+          price: "15 JOD",
+          skills: ["Python & Pandas", "Power BI", "A/B Testing"],
+          description: "Guides data graduates through executive KPI dashboards, Python data pipelines, and real telecom A/B testing case studies.",
+          avatar: makePortrait({bg:"#FDEBED",coat:"#163166",accent:"#E62332",skin:"#EBC1A5",hair:"#3A231E",glasses:true})
+        }
+      ],
+      students: [
+        {
+          id: "s1",
+          name: "Zaid Al-Nasser",
+          email: "zaid@student.mesharah.jo",
+          pass: "1234",
+          major: "Mechanical Engineering",
+          targetJob: "Mechanical Maintenance Engineer",
+          cvName: "Zaid_Nasser_Mech_CV.pdf",
+          haveSkills: ["Thermodynamics", "SolidWorks CAD", "Fluid Mechanics"],
+          verifiedSkills: [],
+          completedTasks: [],
+          completedCourses: [],
+          chosenMentorId: null,
+          submissions: [],
+          appliedJobs: [],
+          tracker: [],
+          avatar: makeInitialsAvatar("Zaid Al-Nasser", false)
+        },
+        {
+          id: "s2",
+          name: "Rana Abu-Laila",
+          email: "rana@student.mesharah.jo",
+          pass: "1234",
+          major: "Computer Science",
+          targetJob: "Backend Software Engineer",
+          cvName: "Rana_CS_Resume.pdf",
+          haveSkills: ["JavaScript & HTML", "Git & GitHub", "Data Structures"],
+          verifiedSkills: [],
+          completedTasks: [],
+          completedCourses: [],
+          chosenMentorId: null,
+          submissions: [],
+          appliedJobs: [],
+          tracker: [],
+          avatar: makeInitialsAvatar("Rana Abu-Laila", false)
+        },
+        {
+          id: "s3",
+          name: "Kareem Sweidan",
+          email: "kareem@student.mesharah.jo",
+          pass: "1234",
+          major: "Data Science & AI",
+          targetJob: "Junior Data Analyst",
+          cvName: "",
+          haveSkills: ["Excel & Statistics", "SQL Basics"],
+          verifiedSkills: [],
+          completedTasks: [],
+          completedCourses: [],
+          chosenMentorId: null,
+          submissions: [],
+          appliedJobs: [],
+          tracker: [],
+          avatar: makeInitialsAvatar("Kareem Sweidan", false)
+        }
+      ],
+      courses: [
+        { id: "c1", title: "Industrial Preventive Maintenance Essentials", url: "https://www.coursera.org/learn/maintenance-reliability", platform: "Coursera", skill: "Preventive Maintenance", description: "Covers PM schedules, vibration checks, and MTBF metrics.", mentorId: "m1", mentorName: "Eng. Tariq Al-Masri" },
+        { id: "c5", title: "Root Cause Analysis & FMEA Workshop", url: "https://www.udemy.com/topic/root-cause-analysis/", platform: "Udemy", skill: "Root Cause Analysis", description: "Step-by-step Fishbone & 5-Whys failure analysis for plant teams.", mentorId: "m1", mentorName: "Eng. Tariq Al-Masri" },
+        { id: "c2", title: "PLC & SCADA Programming Bootcamp", url: "https://www.udemy.com/topic/plc/", platform: "Udemy", skill: "PLC & SCADA", description: "Practical ladder logic and HMI alarm handling for GCC plants.", mentorId: "m2", mentorName: "Eng. Lina Al-Khatib" },
+        { id: "c3", title: "RESTful API Design & SQL Indexing", url: "https://roadmap.sh/backend", platform: "Roadmap.sh", skill: "Node.js & APIs", description: "Hands-on backend architecture and query performance patterns.", mentorId: "m3", mentorName: "Omar Haddad" },
+        { id: "c4", title: "Power BI Executive Dashboards", url: "https://learn.microsoft.com/en-us/training/powerplatform/power-bi", platform: "Microsoft Learn", skill: "Power BI", description: "Free official path for KPI modeling and DAX fundamentals.", mentorId: "m4", mentorName: "Dr. Salma Darwish" }
+      ],
+      miniTasks: [
+        { id: "mt1", mentorId: "m1", title: "Weekly Centrifugal Pump Checklist", skill: "Preventive Maintenance", requiresCourseId: null, brief: "Inspect a centrifugal pump schedule and write a 5-point weekly vibration, seal, and lubrication checklist." },
+        { id: "mt2", mentorId: "m1", title: "Plant Shutdown PM Schedule & MTBF Audit", skill: "Preventive Maintenance", requiresCourseId: "c1", brief: "Using MTBF formulas from the Preventive Maintenance course, build a 30-day shutdown PM plan for 3 rotating assets." },
+        { id: "mt3", mentorId: "m1", title: "5-Whys Conveyor Motor Failure Report", skill: "Root Cause Analysis", requiresCourseId: "c5", brief: "Given an unplanned conveyor motor trip, complete a 5-Whys & Fishbone diagram identifying mechanical vs electrical root causes." },
+        { id: "mt4", mentorId: "m2", title: "Boiler LOTO & PPE Safety Checklist", skill: "ISO Safety Standards", requiresCourseId: null, brief: "Draft a Lockout/Tagout (LOTO) & PPE hazard checklist for a high-pressure boiler inspection." },
+        { id: "mt5", mentorId: "m2", title: "Dual-Tank PLC Ladder Logic & Interlock", skill: "PLC & SCADA", requiresCourseId: "c2", brief: "Design a ladder-logic sequence for a dual-tank automated fill valve with high-level alarm interlock." },
+        { id: "mt6", mentorId: "m3", title: "Signup Form Accessibility & Contrast Audit", skill: "UI Accessibility", requiresCourseId: null, brief: "Audit a signup form and fix keyboard focus order, ARIA labels, and color contrast ratios." },
+        { id: "mt7", mentorId: "m3", title: "JWT Auth Endpoint & Composite SQL Index", skill: "Node.js & APIs", requiresCourseId: "c3", brief: "Build or outline a REST endpoint for /applications with validation, JWT auth middleware, and an EXPLAIN-verified index." },
+        { id: "mt8", mentorId: "m4", title: "A/B Test Hypothesis & Sample Size Brief", skill: "A/B Testing", requiresCourseId: null, brief: "Define sample size, null hypothesis, and primary conversion metric for testing mentor feedback turnaround." },
+        { id: "mt9", mentorId: "m4", title: "Jordan & GCC Readiness KPI Dashboard", skill: "Power BI", requiresCourseId: "c4", brief: "Design a 3-KPI executive dashboard comparing graduate skill readiness across Amman, Riyadh, and Dubai." }
+      ],
+      tips: [
+        { id: "t1", title: "Quantify your university capstone metrics", category: "CV & Interviews", content: "Replace 'worked on HVAC project' with 'Reduced simulated cooling load by 14% using SolidWorks flow simulation.'", mentorId: "m1", mentorName: "Eng. Tariq Al-Masri", date: "2026-11-20" },
+        { id: "t2", title: "Show safety & ISO awareness early", category: "GCC Engineering", content: "GCC industrial recruiters prioritize candidates who mention LOTO, HAZOP, and ISO 45001 practices in interviews.", mentorId: "m2", mentorName: "Eng. Lina Al-Khatib", date: "2026-11-21" },
+        { id: "t3", title: "Include a live README architecture diagram", category: "Backend Portfolios", content: "A clear 1-page README with API endpoints and DB schema gets 3x more callbacks than raw code alone.", mentorId: "m3", mentorName: "Omar Haddad", date: "2026-11-23" }
+      ],
+      notifications: [
+        "Welcome! Try temp login as a Student or Mentor.",
+        "Eng. Tariq added a new Preventive Maintenance course link.",
+        "Zaid Al-Nasser submitted a mini-task for review."
+      ],
+      loginLog: [
+        { action: "Seeded", role: "student", name: "Zaid Al-Nasser", email: "zaid@student.mesharah.jo", time: "2026-11-25" },
+        { action: "Seeded", role: "mentor", name: "Eng. Tariq Al-Masri", email: "tariq@mentor.mesharah.jo", time: "2026-11-25" }
+      ],
+      session: { role: "guest", userId: null },
+      heroTextView: false,
+      guestDraft: {
+        major: "Mechanical Engineering",
+        targetJob: "Mechanical Maintenance Engineer",
+        cvName: "",
+        haveSkills: ["Thermodynamics", "SolidWorks CAD", "Fluid Mechanics"],
+        verifiedSkills: [],
+        completedTasks: [],
+        completedCourses: [],
+        chosenMentorId: null,
+        appliedJobs: [],
+        tracker: []
+      },
+      selectedSkill: "Preventive Maintenance",
+      selectedMentorId: "m1",
+      selectedTaskId: "mt1"
+    };
+  }
+
+  function loadDB(){
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if(raw){
+        var parsed = JSON.parse(raw);
+        if(parsed && parsed.mentors && parsed.students && parsed.courses && parsed.tips && parsed.miniTasks){
+          return parsed;
+        }
+      }
+    }catch(e){}
+    var seed = createSeedData();
+    saveDB(seed);
+    return seed;
+  }
+
+  function saveDB(data){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }catch(e){}
+  }
+
+  var DB = loadDB();
+  var showAllMentors = false;
+  var authRole = "student";
+  var authMode = "login";
+  var toastTimer = null;
+
+  function toast(msg){
+    var el = document.getElementById("toast");
+    el.textContent = msg;
+    el.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ el.classList.remove("show"); }, 3400);
+  }
+
+  function addNotification(msg){
+    DB.notifications.unshift(msg);
+    if(DB.notifications.length > 12) DB.notifications.length = 12;
+    saveDB(DB);
+    renderNotifications();
+  }
+
+  function getActiveStudent(){
+    if(DB.session.role === "student" && DB.session.userId){
+      var found = DB.students.find(function(s){ return s.id === DB.session.userId; });
+      if(found) return found;
+    }
+    return DB.guestDraft;
+  }
+
+  function getActiveMentor(){
+    if(DB.session.role === "mentor" && DB.session.userId){
+      return DB.mentors.find(function(m){ return m.id === DB.session.userId; }) || null;
+    }
+    return null;
+  }
+
+  function getTrackSkills(major, targetJob){
+    var m = TRACKS[major] || TRACKS["Mechanical Engineering"];
+    var j = (m.jobs && m.jobs[targetJob]) || m.jobs[Object.keys(m.jobs)[0]];
+    return {
+      required: j.required.slice(),
+      jobs: j.jobs.slice(),
+      baseline: m.baseline.slice()
+    };
+  }
+
+  function computeReadiness(student){
+    var info = getTrackSkills(student.major, student.targetJob);
+    var req = info.required;
+    var haveSet = {};
+    (student.haveSkills || []).forEach(function(s){ haveSet[s] = true; });
+    (student.verifiedSkills || []).forEach(function(s){ haveSet[s] = true; });
+    var haveList = req.filter(function(s){ return haveSet[s]; });
+    var missList = req.filter(function(s){ return !haveSet[s]; });
+    var completedCount = Math.max((student.completedTasks || []).length, (student.verifiedSkills || []).length);
+    var pct = req.length ? Math.min(100, Math.round((completedCount / req.length) * 100)) : 0;
+    return { required: req, have: haveList, missing: missList, pct: pct, completedCount: completedCount, jobs: info.jobs };
+  }
+
+  function pickMentorForSkill(skill){
+    var m = DB.mentors.find(function(item){
+      return item.skills.some(function(sk){ return sk.toLowerCase() === String(skill).toLowerCase(); });
+    });
+    return m || DB.mentors[0];
+  }
+
+  function populateMajorJobSelects(majorSelId, jobSelId, currentMajor, currentJob){
+    var mSel = document.getElementById(majorSelId);
+    var jSel = document.getElementById(jobSelId);
+    if(!mSel || !jSel) return;
+    var majors = Object.keys(TRACKS);
+    mSel.innerHTML = majors.map(function(m){
+      return '<option value="'+esc(m)+'"'+(m===currentMajor?' selected':'')+'>'+esc(m)+'</option>';
+    }).join("");
+    function fillJobs(){
+      var chosenMajor = mSel.value || majors[0];
+      var jobs = Object.keys(TRACKS[chosenMajor].jobs);
+      jSel.innerHTML = jobs.map(function(j){
+        return '<option value="'+esc(j)+'"'+(j===currentJob?' selected':'')+'>'+esc(j)+'</option>';
+      }).join("");
+    }
+    fillJobs();
+    mSel.onchange = fillJobs;
+  }
+
+  function renderHeader(){
+    var navStudent = document.getElementById("nav-student");
+    var navMentor = document.getElementById("nav-mentor");
+    var navLogin = document.getElementById("nav-login");
+    var chip = document.getElementById("auth-chip");
+
+    if(DB.session.role === "student"){
+      var st = getActiveStudent();
+      navStudent.hidden = false;
+      navMentor.hidden = true;
+      navLogin.textContent = "Switch Account";
+      chip.href = "#student";
+      chip.innerHTML = '<img src="'+esc(st.avatar)+'" alt="">'
+        + '<span>'+esc(st.name.split(" ")[0])+'</span>'
+        + '<span class="role-pill student">Student</span>';
+    } else if(DB.session.role === "mentor"){
+      var mt = getActiveMentor();
+      navStudent.hidden = true;
+      navMentor.hidden = false;
+      navLogin.textContent = "Switch Account";
+      chip.href = "#mentor";
+      chip.innerHTML = '<img src="'+esc(mt.avatar)+'" alt="">'
+        + '<span>'+esc(mt.name.split(" ").slice(0,2).join(" "))+'</span>'
+        + '<span class="role-pill">Mentor</span>';
+    } else {
+      navStudent.hidden = true;
+      navMentor.hidden = true;
+      navLogin.textContent = "Login / Sign Up";
+      chip.href = "#login";
+      chip.innerHTML = '<span>Login / Sign up</span>';
+    }
+    renderNotifications();
+  }
+
+  function renderNotifications(){
+    var btn = document.getElementById("notif-btn");
+    var list = document.getElementById("notif-list");
+    btn.textContent = String(DB.notifications.length);
+    if(DB.notifications.length === 0){
+      list.innerHTML = '<li style="border-left-color:var(--royal)">All caught up!</li>';
+    } else {
+      list.innerHTML = DB.notifications.map(function(n){
+        return '<li>'+esc(n)+'</li>';
+      }).join("");
+    }
+  }
+
+  function renderMentorCardHTML(m){
+    var st = getActiveStudent();
+    var chosenId = st.chosenMentorId || null;
+    var isChosen = chosenId === m.id;
+    var lockedOut = !!(chosenId && !isChosen);
+
+    var skillsHtml = m.skills.map(function(sk){
+      return '<span class="tag">'+esc(sk)+'</span>';
+    }).join("");
+    var taskCount = DB.miniTasks.filter(function(t){ return t.mentorId === m.id; }).length;
+    var courseCount = DB.courses.filter(function(c){ return c.mentorId === m.id; }).length;
+
+    var btnHtml = isChosen
+      ? '<button type="button" class="btn small secondary pick-mentor-btn" data-mentor-id="'+esc(m.id)+'">Open My Mentorship</button>'
+      : (lockedOut
+        ? '<button type="button" class="btn small" disabled title="You can only choose one mentor">1 Mentor Chosen</button>'
+        : '<button type="button" class="btn small secondary pick-mentor-btn" data-mentor-id="'+esc(m.id)+'">Choose Mentor &amp; Start</button>');
+
+    return '<div class="card tall" style="'+(isChosen?'border-left-color:var(--ok);background:#F9FCFA':(lockedOut?'opacity:.78':''))+'">'
+      + '<div>'
+      + '  <div class="mentor-head">'
+      + '    <img class="mentor-img" src="'+esc(m.avatar)+'" alt="'+esc(m.name)+' portrait">'
+      + '    <div><strong>'+esc(m.name)+'</strong>'+(isChosen?' <span class="tag ok">✓ Chosen</span>':'')+'<div class="mentor-meta">'+esc(m.title)+' &middot; '+esc(m.location)+'</div></div>'
+      + '  </div>'
+      + '  <p class="mentor-desc">'+esc(m.description)+'</p>'
+      + '  <div class="tags">'+skillsHtml+'</div>'
+      + '  <div class="muted" style="font-size:.82rem;margin-bottom:6px">'+taskCount+' mini-task'+(taskCount===1?'':'s')+' &middot; '+courseCount+' recommended course'+(courseCount===1?'':'s')+'</div>'
+      + '</div>'
+      + '<div class="between" style="margin-top:8px">'
+      + '  <span class="tag red">Review: '+esc(m.price || "15 JOD")+'</span>'
+      + btnHtml
+      + '</div>'
+      + '</div>';
+  }
+
+  function bindMentorCardButtons(container){
+    container.querySelectorAll(".pick-mentor-btn").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var mId = btn.getAttribute("data-mentor-id");
+        var mentor = DB.mentors.find(function(x){ return x.id === mId; });
+        if(!mentor) return;
+        var st = getActiveStudent();
+        if(st.chosenMentorId && st.chosenMentorId !== mentor.id){
+          toast("You can only choose one mentor. Leave your current mentor first.");
+          return;
+        }
+        if(!st.chosenMentorId){
+          st.chosenMentorId = mentor.id;
+          addNotification((st.name || "Guest") + " chose mentor: " + mentor.name);
+          toast("Chosen " + mentor.name + "! Courses & tips unlocked.");
+        }
+        DB.selectedMentorId = mentor.id;
+        saveDB(DB);
+        location.hash = "#mentorship";
+      });
+    });
+  }
+
+  function setHeroView(useWire){
+    DB.heroTextView = !!useWire;
+    var wire = document.getElementById("view-wire");
+    var hook = document.getElementById("view-hook");
+    var tbtn = document.getElementById("toggle-view");
+    if(wire && hook){
+      wire.hidden = !useWire;
+      hook.hidden = !!useWire;
+    }
+    if(tbtn){
+      tbtn.setAttribute("aria-pressed", String(!!useWire));
+      tbtn.textContent = useWire ? "Switch back to hook view" : "Switch to hero text view";
+    }
+  }
+
+  function completeTaskForStudent(st, taskObj, skill, mentor, submitType, note){
+    if(!st.haveSkills) st.haveSkills = [];
+    if(skill && st.haveSkills.indexOf(skill) < 0) st.haveSkills.push(skill);
+    if(!st.verifiedSkills) st.verifiedSkills = [];
+    if(skill && st.verifiedSkills.indexOf(skill) < 0) st.verifiedSkills.push(skill);
+    if(!st.completedTasks) st.completedTasks = [];
+    var taskKey = (taskObj && taskObj.id) || ("skill:" + skill);
+    if(st.completedTasks.indexOf(taskKey) < 0) st.completedTasks.push(taskKey);
+
+    if(st.submissions){
+      st.submissions.unshift({
+        id: "sub_" + Date.now(),
+        skill: skill,
+        mentorId: mentor.id,
+        mentorName: mentor.name,
+        type: submitType || "Completed Task",
+        note: note || "Task marked completed.",
+        status: "Verified",
+        feedback: "Reviewed via " + (submitType || "Mentorship") + " — verified!",
+        date: new Date().toISOString().slice(0,10)
+      });
+    }
+    st.tracker = st.tracker || [];
+    st.tracker.unshift("✓ " + ((taskObj && taskObj.title) || skill));
+  }
+
+  function renderHome(){
+    setHeroView(!!DB.heroTextView);
+    var st = getActiveStudent();
+    var r = computeReadiness(st);
+
+    var banner = document.getElementById("home-session-banner");
+    var heroBtn = document.getElementById("hero-login-btn");
+    var roleCta = document.getElementById("home-role-cta");
+    var wireDashBtn = document.getElementById("wire-dashboard-btn");
+
+    if(DB.session.role === "student"){
+      banner.innerHTML = 'Logged in as Student: <strong>'+esc(st.name)+'</strong> &middot; <a href="#student">Open Student Page</a> (<a href="#login" id="quick-logout-link">Switch / Logout</a>)';
+      heroBtn.textContent = "Open My Student Page";
+      heroBtn.href = "#student";
+      roleCta.textContent = "Go to Student Dashboard";
+      roleCta.href = "#student";
+      wireDashBtn.hidden = false;
+      wireDashBtn.href = "#student";
+      wireDashBtn.textContent = "Open My Student Page";
+    } else if(DB.session.role === "mentor"){
+      var mt = getActiveMentor();
+      banner.innerHTML = 'Logged in as Mentor: <strong>'+esc(mt.name)+'</strong> &middot; <a href="#mentor">Open Mentor Page</a> (<a href="#login">Switch / Logout</a>)';
+      heroBtn.textContent = "Open My Mentor Page";
+      heroBtn.href = "#mentor";
+      roleCta.textContent = "Manage Courses & Students";
+      roleCta.href = "#mentor";
+      wireDashBtn.hidden = false;
+      wireDashBtn.href = "#mentor";
+      wireDashBtn.textContent = "Open My Mentor Page";
+    } else {
+      banner.textContent = "Viewing as Guest · Sign in as Student or Mentor to unlock personalized pages";
+      heroBtn.textContent = "Login / Sign Up (Student or Mentor)";
+      heroBtn.href = "#login";
+      roleCta.textContent = "Sign in to Contribute or Save";
+      roleCta.href = "#login";
+      wireDashBtn.hidden = true;
+    }
+
+    document.getElementById("wire-job-title").textContent = st.targetJob;
+    document.getElementById("wire-match-text").textContent = "Progress track: " + r.pct + "% (" + r.completedCount + " task" + (r.completedCount===1?"":"s") + " completed)";
+    var wBar = document.getElementById("wire-match-bar");
+    wBar.style.width = r.pct + "%";
+    wBar.parentElement.setAttribute("aria-valuenow", String(r.pct));
+
+    var trackerItems = (st.tracker || []).slice(0, 4);
+    while(trackerItems.length < 4) trackerItems.push("Pending: Mark a task completed");
+    document.getElementById("wire-tracker").innerHTML = trackerItems.map(function(t){
+      return '<div class="card center" style="justify-content:center"><strong>'+esc(t)+'</strong></div>';
+    }).join("");
+
+    var mentorsGrid = document.getElementById("home-mentors-grid");
+    var list = showAllMentors ? DB.mentors : DB.mentors.slice(0, 3);
+    mentorsGrid.innerHTML = list.map(function(m){ return renderMentorCardHTML(m); }).join("");
+    bindMentorCardButtons(mentorsGrid);
+
+    var moreBtn = document.getElementById("toggle-all-mentors");
+    moreBtn.textContent = showAllMentors ? "Show top 3 mentors" : ("See all mentors (" + DB.mentors.length + ")");
+
+    var chosenMentor = st.chosenMentorId ? DB.mentors.find(function(m){ return m.id === st.chosenMentorId; }) : null;
+    var ctCols = document.getElementById("home-courses-tips-cols");
+    var ctLocked = document.getElementById("home-ct-locked");
+    var ctSub = document.getElementById("home-ct-subtitle");
+    var leaveBtn = document.getElementById("home-leave-mentor-btn");
+
+    if(chosenMentor){
+      ctLocked.hidden = true;
+      ctCols.hidden = false;
+      leaveBtn.hidden = false;
+      ctSub.textContent = "Showing courses & tips from your chosen mentor: " + chosenMentor.name;
+
+      var cList = DB.courses.filter(function(c){ return c.mentorId === chosenMentor.id; });
+      document.getElementById("home-courses-preview").innerHTML = cList.length
+        ? cList.map(function(c){
+            return '<li><div><strong>'+esc(c.title)+'</strong><div class="muted">'+esc(c.platform)+' &middot; '+esc(c.skill)+'</div></div>'
+              + '<a class="btn small secondary" href="'+esc(safeUrl(c.url))+'" target="_blank" rel="noopener">Open</a></li>';
+          }).join("")
+        : '<li><span class="muted">Your chosen mentor has not added courses yet.</span></li>';
+
+      var tList = DB.tips.filter(function(t){ return t.mentorId === chosenMentor.id; });
+      document.getElementById("home-tips-preview").innerHTML = tList.length
+        ? tList.map(function(t){
+            return '<li><div><strong>'+esc(t.title)+'</strong><div class="muted">'+esc(t.content)+'</div></div>'
+              + '<span class="tag">'+esc(t.category)+'</span></li>';
+          }).join("")
+        : '<li><span class="muted">Your chosen mentor has not posted tips yet.</span></li>';
+    } else {
+      ctLocked.hidden = false;
+      ctCols.hidden = true;
+      leaveBtn.hidden = true;
+      ctSub.textContent = "Only appears after you choose your mentor";
+    }
+  }
+
+  function renderInput(){
+    var st = getActiveStudent();
+    populateMajorJobSelects("major", "job", st.major, st.targetJob);
+    var cvStatus = document.getElementById("cv-status");
+    cvStatus.textContent = st.cvName
+      ? ("Attached CV: " + st.cvName + " (Skills matched against " + st.major + ")")
+      : "No CV attached yet — we will match using your major baseline skills.";
+  }
+
+  function renderGap(){
+    var st = getActiveStudent();
+    var r = computeReadiness(st);
+    document.getElementById("gap-job-title").textContent = st.targetJob;
+    document.getElementById("gap-student-meta").textContent = (st.name ? st.name + " · " : "Guest Roadmap · ") + st.major;
+    document.getElementById("gap-match-text").textContent = "Progress track: " + r.pct + "% (" + r.completedCount + " task" + (r.completedCount===1?"":"s") + " completed)";
+    var bar = document.getElementById("gap-match-bar");
+    bar.style.width = r.pct + "%";
+    bar.parentElement.setAttribute("aria-valuenow", String(r.pct));
+
+    var verSet = {};
+    (st.verifiedSkills || []).forEach(function(s){ verSet[s] = true; });
+
+    document.getElementById("gap-have-list").innerHTML = r.have.map(function(sk){
+      return '<li><span><span class="m">[✓]</span> '+esc(sk)+'</span>'
+        + (verSet[sk] ? '<span class="tag ok">Mentor Verified</span>' : '<span class="tag">Baseline</span>')
+        + '</li>';
+    }).join("");
+
+    var missEl = document.getElementById("gap-miss-list");
+    if(r.missing.length === 0){
+      missEl.innerHTML = '<li><span><span class="m" style="color:var(--ok)">[★]</span> All target skills covered!</span><a class="btn small secondary" href="#reward">View Verified Profile</a></li>';
+    } else {
+      missEl.innerHTML = r.missing.map(function(sk){
+        return '<li><span><span class="m">[!]</span> '+esc(sk)+'</span>'
+          + '<button type="button" class="btn small fill-gap-btn" data-skill="'+esc(sk)+'">Fill the Gaps</button></li>';
+      }).join("");
+      missEl.querySelectorAll(".fill-gap-btn").forEach(function(btn){
+        btn.addEventListener("click", function(){
+          var sk = btn.getAttribute("data-skill");
+          DB.selectedSkill = sk;
+          DB.selectedMentorId = pickMentorForSkill(sk).id;
+          var matchTask = DB.miniTasks.find(function(t){ return t.skill.toLowerCase() === sk.toLowerCase(); });
+          DB.selectedTaskId = matchTask ? matchTask.id : null;
+          saveDB(DB);
+          location.hash = "#task";
+        });
+      });
+    }
+  }
+
+  function isCourseDone(student, courseId){
+    return (student.completedCourses || []).indexOf(courseId) >= 0;
+  }
+
+  function toggleCourseDone(student, courseId){
+    if(!student.completedCourses) student.completedCourses = [];
+    var idx = student.completedCourses.indexOf(courseId);
+    if(idx >= 0){
+      student.completedCourses.splice(idx, 1);
+      saveDB(DB);
+      return false;
+    } else {
+      student.completedCourses.push(courseId);
+      saveDB(DB);
+      return true;
+    }
+  }
+
+  function renderMentorship(){
+    var st = getActiveStudent();
+    var targetId = DB.selectedMentorId || st.chosenMentorId || DB.mentors[0].id;
+    var mentor = DB.mentors.find(function(m){ return m.id === targetId; }) || DB.mentors[0];
+    DB.selectedMentorId = mentor.id;
+
+    var sel = document.getElementById("ms-mentor-select");
+    sel.innerHTML = DB.mentors.map(function(m){
+      return '<option value="'+esc(m.id)+'"'+(m.id===mentor.id?' selected':'')+'>'+esc(m.name)+(st.chosenMentorId===m.id?' (Chosen)':'')+'</option>';
+    }).join("");
+
+    var chosenId = st.chosenMentorId || null;
+    var isChosen = chosenId === mentor.id;
+    var hasOtherChosen = !!(chosenId && !isChosen);
+    var otherMentor = hasOtherChosen ? DB.mentors.find(function(m){ return m.id === chosenId; }) : null;
+
+    var actionBtnHtml = isChosen
+      ? '<div class="row"><span class="tag ok">✓ Your Chosen Mentor</span><button type="button" class="btn small ghost" id="ms-leave-btn">Leave Mentor</button></div>'
+      : (hasOtherChosen
+        ? '<button type="button" class="btn small" disabled>1 Mentor Already Chosen</button>'
+        : '<button type="button" class="btn small" id="ms-choose-btn">Choose This Mentor</button>');
+
+    document.getElementById("ms-mentor-header").innerHTML =
+      '<div class="between">'
+      + '  <div class="row">'
+      + '    <img class="mentor-img lg" src="'+esc(mentor.avatar)+'" alt="'+esc(mentor.name)+'">'
+      + '    <div>'
+      + '      <h2 style="margin:0">'+esc(mentor.name)+'</h2>'
+      + '      <div class="muted">'+esc(mentor.title)+' &middot; '+esc(mentor.location)+'</div>'
+      + '      <div class="tags" style="margin:6px 0 0">'+mentor.skills.map(function(sk){ return '<span class="tag">'+esc(sk)+'</span>'; }).join("")+'</div>'
+      + '    </div>'
+      + '  </div>'
+      + actionBtnHtml
+      + '</div>'
+      + '<p style="margin:12px 0 0">'+esc(mentor.description)+'</p>';
+
+    var chooseBtn = document.getElementById("ms-choose-btn");
+    if(chooseBtn){
+      chooseBtn.addEventListener("click", function(){
+        st.chosenMentorId = mentor.id;
+        saveDB(DB);
+        addNotification((st.name || "Guest") + " chose mentor: " + mentor.name);
+        toast("Chosen " + mentor.name + "! Courses & tips unlocked.");
+        renderMentorship();
+      });
+    }
+    var leaveBtn = document.getElementById("ms-leave-btn");
+    if(leaveBtn){
+      leaveBtn.addEventListener("click", function(){
+        st.chosenMentorId = null;
+        saveDB(DB);
+        toast("Left mentor. You can now choose a mentor.");
+        renderMentorship();
+      });
+    }
+
+    var lockedNotice = document.getElementById("ms-locked-notice");
+    var ctCols = document.getElementById("ms-courses-tips-cols");
+    var tasksPanel = document.getElementById("ms-tasks-panel");
+
+    if(!isChosen){
+      lockedNotice.hidden = false;
+      ctCols.hidden = true;
+      tasksPanel.hidden = true;
+      var lockMsg = document.getElementById("ms-locked-msg");
+      var lockAct = document.getElementById("ms-locked-actions");
+      if(hasOtherChosen && otherMentor){
+        lockMsg.textContent = "You can only choose one mentor at a time. You currently chose " + otherMentor.name + ". Leave your current mentor to choose " + mentor.name + ".";
+        lockAct.innerHTML = '<button type="button" class="btn small secondary" id="ms-go-chosen-btn">Go to ' + esc(otherMentor.name) + '</button>'
+          + '<button type="button" class="btn small ghost" id="ms-switch-leave-btn">Leave ' + esc(otherMentor.name) + '</button>';
+        document.getElementById("ms-go-chosen-btn").addEventListener("click", function(){
+          DB.selectedMentorId = otherMentor.id;
+          saveDB(DB);
+          renderMentorship();
+        });
+        document.getElementById("ms-switch-leave-btn").addEventListener("click", function(){
+          st.chosenMentorId = null;
+          saveDB(DB);
+          toast("Cleared previous mentor. You can now choose " + mentor.name + ".");
+          renderMentorship();
+        });
+      } else {
+        lockMsg.textContent = "Recommended courses, mentor tips, and mini-tasks only appear after you choose this mentor.";
+        lockAct.innerHTML = '<button type="button" class="btn small" id="ms-unlock-choose-btn">Choose ' + esc(mentor.name) + '</button>';
+        document.getElementById("ms-unlock-choose-btn").addEventListener("click", function(){
+          st.chosenMentorId = mentor.id;
+          saveDB(DB);
+          addNotification((st.name || "Guest") + " chose mentor: " + mentor.name);
+          toast("Chosen " + mentor.name + "! Courses & tips unlocked.");
+          renderMentorship();
+        });
+      }
+      return;
+    }
+
+    lockedNotice.hidden = true;
+    ctCols.hidden = false;
+    tasksPanel.hidden = false;
+
+    var mCourses = DB.courses.filter(function(c){ return c.mentorId === mentor.id; });
+    var doneCount = mCourses.filter(function(c){ return isCourseDone(st, c.id); }).length;
+    document.getElementById("ms-course-progress").textContent = doneCount + " of " + mCourses.length + " completed";
+
+    var coursesEl = document.getElementById("ms-courses-list");
+    if(mCourses.length === 0){
+      coursesEl.innerHTML = '<li><span class="muted">No recommended courses added by this mentor yet.</span></li>';
+    } else {
+      coursesEl.innerHTML = mCourses.map(function(c){
+        var done = isCourseDone(st, c.id);
+        return '<li><div style="flex:1;min-width:180px"><strong>'+esc(c.title)+'</strong> <span class="tag">'+esc(c.skill)+'</span>'
+          + '<div class="muted">'+esc(c.platform)+'</div>'
+          + (c.description ? '<div style="font-size:.84rem">'+esc(c.description)+'</div>' : '')
+          + '</div><div class="row">'
+          + '<a class="btn small secondary" href="'+esc(safeUrl(c.url))+'" target="_blank" rel="noopener">Open Course</a>'
+          + '<button type="button" class="btn small '+(done?'ghost':'')+' ms-toggle-course-btn" data-cid="'+esc(c.id)+'">'+(done?'✓ Completed':'Mark Completed')+'</button>'
+          + '</div></li>';
+      }).join("");
+      coursesEl.querySelectorAll(".ms-toggle-course-btn").forEach(function(btn){
+        btn.addEventListener("click", function(){
+          var cid = btn.getAttribute("data-cid");
+          var nowDone = toggleCourseDone(st, cid);
+          toast(nowDone ? "Course marked completed! Dependent mini-tasks unlocked." : "Course marked incomplete.");
+          renderMentorship();
+        });
+      });
+    }
+
+    var mTips = DB.tips.filter(function(t){ return t.mentorId === mentor.id; });
+    document.getElementById("ms-tips-list").innerHTML = mTips.length
+      ? mTips.map(function(t){
+          return '<li><div><strong>'+esc(t.title)+'</strong> <span class="tag red">'+esc(t.category)+'</span>'
+            + '<div style="font-size:.88rem;margin-top:4px">'+esc(t.content)+'</div></div></li>';
+        }).join("")
+      : '<li><span class="muted">No tips posted by this mentor yet.</span></li>';
+
+    var mTasks = DB.miniTasks.filter(function(t){ return t.mentorId === mentor.id; });
+    var tasksEl = document.getElementById("ms-tasks-list");
+    if(mTasks.length === 0){
+      tasksEl.innerHTML = '<p class="muted">This mentor has not added mini-tasks yet.</p>';
+    } else {
+      tasksEl.innerHTML = mTasks.map(function(t){
+        var reqCourse = t.requiresCourseId ? DB.courses.find(function(c){ return c.id === t.requiresCourseId; }) : null;
+        var locked = !!(reqCourse && !isCourseDone(st, reqCourse.id));
+        var verified = (st.completedTasks || []).indexOf(t.id) >= 0 || (st.verifiedSkills || []).indexOf(t.skill) >= 0;
+
+        var statusBadge = !reqCourse
+          ? '<span class="tag ok">Open Task &middot; No course needed</span>'
+          : (locked
+            ? '<span class="tag red">🔒 Requires Course: '+esc(reqCourse.title)+'</span>'
+            : '<span class="tag ok">🔓 Unlocked &middot; Completed: '+esc(reqCourse.title)+'</span>');
+
+        return '<div class="student-card" style="border-left-color:'+(locked?'var(--red)':'var(--royal)')+'">'
+          + '<div class="between">'
+          + '  <div><strong style="color:var(--navy);font-size:1.02rem">'+esc(t.title)+'</strong>'
+          + '  <div class="tags" style="margin:6px 0 4px"><span class="tag">Skill: '+esc(t.skill)+'</span>'+statusBadge+(verified?'<span class="tag ok">✓ Task Completed</span>':'')+'</div></div>'
+          + '  <div class="row">'
+          + (locked
+            ? '<button type="button" class="btn small" disabled title="Complete the required course first">Locked — Complete Course</button>'
+            : '<button type="button" class="btn small secondary ms-start-task-btn" data-tid="'+esc(t.id)+'" data-skill="'+esc(t.skill)+'">'+(verified?'Open Task':'Start Mini-Task')+'</button>'
+              + (verified ? '' : '<button type="button" class="btn small ms-complete-task-btn" data-tid="'+esc(t.id)+'">Mark Task Completed</button>'))
+          + '  </div>'
+          + '</div>'
+          + '<p style="margin:6px 0 0;font-size:.92rem">'+esc(t.brief)+'</p>'
+          + (locked && reqCourse
+            ? '<div class="row" style="margin-top:8px"><a class="btn small ghost" href="'+esc(safeUrl(reqCourse.url))+'" target="_blank" rel="noopener">Take Required Course</a>'
+              + '<button type="button" class="btn small ms-quick-done-btn" data-cid="'+esc(reqCourse.id)+'">Mark Course Done to Unlock</button></div>'
+            : '')
+          + '</div>';
+      }).join("");
+
+      tasksEl.querySelectorAll(".ms-start-task-btn").forEach(function(btn){
+        btn.addEventListener("click", function(){
+          DB.selectedTaskId = btn.getAttribute("data-tid");
+          DB.selectedSkill = btn.getAttribute("data-skill");
+          DB.selectedMentorId = mentor.id;
+          saveDB(DB);
+          location.hash = "#task";
+        });
+      });
+
+      tasksEl.querySelectorAll(".ms-complete-task-btn").forEach(function(btn){
+        btn.addEventListener("click", function(){
+          var tid = btn.getAttribute("data-tid");
+          var taskObj = DB.miniTasks.find(function(x){ return x.id === tid; });
+          if(!taskObj) return;
+          completeTaskForStudent(st, taskObj, taskObj.skill, mentor, "Mentorship Checklist", "Marked task completed in mentorship track.");
+          saveDB(DB);
+          addNotification((st.name || "Guest") + " completed task: " + taskObj.title);
+          toast("Task completed! Progress track updated.");
+          renderMentorship();
+        });
+      });
+
+      tasksEl.querySelectorAll(".ms-quick-done-btn").forEach(function(btn){
+        btn.addEventListener("click", function(){
+          var cid = btn.getAttribute("data-cid");
+          if(!isCourseDone(st, cid)) toggleCourseDone(st, cid);
+          toast("Course completed — mini-task unlocked!");
+          renderMentorship();
+        });
+      });
+    }
+  }
+
+  function renderTask(){
+    var st = getActiveStudent();
+    var r = computeReadiness(st);
+    var selectedTask = DB.selectedTaskId ? DB.miniTasks.find(function(t){ return t.id === DB.selectedTaskId; }) : null;
+    var skill = (selectedTask && selectedTask.skill) || DB.selectedSkill || r.missing[0] || r.required[0] || "Preventive Maintenance";
+    DB.selectedSkill = skill;
+
+    var mentor = DB.mentors.find(function(m){ return m.id === (selectedTask ? selectedTask.mentorId : DB.selectedMentorId); }) || pickMentorForSkill(skill);
+    DB.selectedMentorId = mentor.id;
+
+    document.getElementById("task-skill-title").textContent = "Prove Skill: " + skill;
+    document.getElementById("task-title-heading").textContent = selectedTask ? selectedTask.title : "Mini-Task Brief";
+    document.getElementById("task-brief").textContent = (selectedTask && selectedTask.brief) || SKILL_TASKS[skill] || ("Complete a practical industry deliverable demonstrating " + skill + " for your " + st.targetJob + " portfolio.");
+
+    var reqCourse = (selectedTask && selectedTask.requiresCourseId)
+      ? DB.courses.find(function(c){ return c.id === selectedTask.requiresCourseId; })
+      : null;
+    var locked = !!(reqCourse && !isCourseDone(st, reqCourse.id));
+    var prereqBadge = document.getElementById("task-prereq-badge");
+    var lockBox = document.getElementById("task-lock-notice");
+    var bookBtn = document.getElementById("btn-book-review");
+    var freeBtn = document.getElementById("btn-free-feedback");
+
+    if(!reqCourse){
+      prereqBadge.textContent = "Open Task · No course needed";
+      prereqBadge.className = "tag ok";
+      lockBox.hidden = true;
+      bookBtn.disabled = false;
+      freeBtn.disabled = false;
+    } else if(locked){
+      prereqBadge.textContent = "🔒 Requires: " + reqCourse.title;
+      prereqBadge.className = "tag red";
+      lockBox.hidden = false;
+      document.getElementById("task-lock-text").textContent = "This mini-task requires completing \"" + reqCourse.title + "\" in " + mentor.name + "'s mentorship first.";
+      bookBtn.disabled = true;
+      freeBtn.disabled = true;
+    } else {
+      prereqBadge.textContent = "🔓 Prerequisite Completed: " + reqCourse.title;
+      prereqBadge.className = "tag ok";
+      lockBox.hidden = true;
+      bookBtn.disabled = false;
+      freeBtn.disabled = false;
+    }
+
+    var sel = document.getElementById("task-mentor-select");
+    sel.innerHTML = DB.mentors.map(function(m){
+      return '<option value="'+esc(m.id)+'"'+(m.id===DB.selectedMentorId?' selected':'')+'>'+esc(m.name)+' ('+esc(m.skills[0] || "Mentor")+')</option>';
+    }).join("");
+
+    document.getElementById("task-mentor-card").innerHTML =
+      '<img class="mentor-img lg" src="'+esc(mentor.avatar)+'" alt="'+esc(mentor.name)+'">'
+      + '<div style="flex:1;min-width:220px">'
+      + '  <strong style="color:var(--navy);font-size:1.05rem">'+esc(mentor.name)+'</strong>'
+      + '  <div class="mentor-meta">'+esc(mentor.title)+' &middot; '+esc(mentor.location)+'</div>'
+      + '  <p style="margin:6px 0 6px;font-size:.92rem">'+esc(mentor.description)+'</p>'
+      + '  <div class="tags" style="margin:0">'+mentor.skills.map(function(sk){ return '<span class="tag">'+esc(sk)+'</span>'; }).join("")+'</div>'
+      + '</div>';
+
+    bookBtn.textContent = "Book 15-Min Review with " + mentor.name.split(" ").slice(0,2).join(" ") + " (" + (mentor.price || "15 JOD") + ")";
+  }
+
+  function renderReward(){
+    var st = getActiveStudent();
+    var r = computeReadiness(st);
+    var badgesEl = document.getElementById("reward-badges");
+    var ver = st.verifiedSkills || [];
+    if(ver.length === 0){
+      badgesEl.innerHTML = '<span class="badge">Complete a Mini-Task on the Action tab to earn your first Mentor-Verified badge</span>';
+    } else {
+      badgesEl.innerHTML = ver.map(function(sk){
+        return '<span class="badge">✓ '+esc(sk)+': Verified by Industry Mentor</span>';
+      }).join("");
+    }
+
+    document.getElementById("reward-readiness-text").textContent = "Updated readiness for " + st.targetJob + ": " + r.pct + "%";
+    var bar = document.getElementById("reward-readiness-bar");
+    bar.style.width = r.pct + "%";
+    bar.parentElement.setAttribute("aria-valuenow", String(r.pct));
+
+    var applied = st.appliedJobs || [];
+    var jobsList = document.getElementById("reward-jobs-list");
+    jobsList.innerHTML = r.jobs.map(function(jobTitle){
+      var isApplied = applied.indexOf(jobTitle) >= 0;
+      return '<li><span><strong>'+esc(jobTitle)+'</strong></span>'
+        + (isApplied
+          ? '<span class="tag ok">✓ Applied with Verified Profile</span>'
+          : '<button type="button" class="btn small apply-job-btn" data-job="'+esc(jobTitle)+'">Apply with Verified Profile</button>')
+        + '</li>';
+    }).join("");
+
+    jobsList.querySelectorAll(".apply-job-btn").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var j = btn.getAttribute("data-job");
+        if(!st.appliedJobs) st.appliedJobs = [];
+        if(st.appliedJobs.indexOf(j) < 0) st.appliedJobs.push(j);
+        if(!st.tracker) st.tracker = [];
+        st.tracker.unshift("Applied: " + j.split("–")[0].trim());
+        saveDB(DB);
+        toast("Application sent with verified profile!");
+        renderReward();
+      });
+    });
+
+    document.getElementById("reward-to-student").hidden = (DB.session.role !== "student");
+  }
+
+  function renderLoginScreen(){
+    var isSignup = authMode === "signup";
+    document.getElementById("role-tab-student").classList.toggle("active", authRole === "student");
+    document.getElementById("role-tab-mentor").classList.toggle("active", authRole === "mentor");
+    document.getElementById("mode-tab-login").classList.toggle("active", !isSignup);
+    document.getElementById("mode-tab-signup").classList.toggle("active", isSignup);
+
+    document.getElementById("signup-student-fields").hidden = !(isSignup && authRole === "student");
+    document.getElementById("signup-mentor-fields").hidden = !(isSignup && authRole === "mentor");
+    document.getElementById("auth-name-hint").textContent = isSignup ? "(required)" : "(optional for existing email, saved if new)";
+    document.getElementById("auth-submit-btn").textContent = (isSignup ? "Sign Up & Add " : "Temp Login as ") + (authRole === "student" ? "Student" : "Mentor");
+
+    populateMajorJobSelects("signup-major", "signup-job", "Mechanical Engineering", "Mechanical Maintenance Engineer");
+
+    var qs = document.getElementById("quick-students");
+    qs.innerHTML = DB.students.map(function(s){
+      return '<button type="button" class="btn small secondary quick-login-btn" data-role="student" data-id="'+esc(s.id)+'">'+esc(s.name)+'</button>';
+    }).join("");
+
+    var qm = document.getElementById("quick-mentors");
+    qm.innerHTML = DB.mentors.map(function(m){
+      return '<button type="button" class="btn small quick-login-btn" data-role="mentor" data-id="'+esc(m.id)+'">'+esc(m.name)+'</button>';
+    }).join("");
+
+    document.querySelectorAll(".quick-login-btn").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var role = btn.getAttribute("data-role");
+        var id = btn.getAttribute("data-id");
+        var user = (role === "student" ? DB.students : DB.mentors).find(function(u){ return u.id === id; });
+        if(!user) return;
+        DB.session = { role: role, userId: user.id };
+        DB.loginLog.unshift({ action: "Temp Login", role: role, name: user.name, email: user.email, time: new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}) });
+        if(DB.loginLog.length > 12) DB.loginLog.length = 12;
+        setHeroView(true);
+        saveDB(DB);
+        renderHeader();
+        toast("Logged in as " + user.name + " (" + role + ")");
+        location.hash = "#home";
+      });
+    });
+
+    document.getElementById("login-log-body").innerHTML = DB.loginLog.map(function(row){
+      return '<tr><td><span class="tag '+(row.action==="Sign Up"?"red":"")+'">'+esc(row.action)+'</span></td>'
+        + '<td>'+esc(row.role)+'</td><td>'+esc(row.name)+'</td><td>'+esc(row.email)+'</td></tr>';
+    }).join("");
+  }
+
+  function renderStudentPage(){
+    var guard = document.getElementById("student-guard");
+    var dash = document.getElementById("student-dashboard");
+    if(DB.session.role !== "student"){
+      guard.hidden = false;
+      dash.hidden = true;
+      return;
+    }
+    var st = getActiveStudent();
+    guard.hidden = true;
+    dash.hidden = false;
+
+    var r = computeReadiness(st);
+    document.getElementById("st-avatar").src = st.avatar;
+    document.getElementById("st-name").textContent = st.name;
+    document.getElementById("st-meta").textContent = st.email + " · " + st.major + (st.cvName ? " · CV: " + st.cvName : "");
+    document.getElementById("st-readiness-label").textContent = "Career Readiness: " + r.pct + "%";
+    document.getElementById("st-target-job").textContent = "Target: " + st.targetJob;
+    document.getElementById("st-readiness-bar").style.width = r.pct + "%";
+
+    document.getElementById("st-stat-have").textContent = String(r.have.length);
+    document.getElementById("st-stat-miss").textContent = String(r.missing.length);
+    document.getElementById("st-stat-verified").textContent = String((st.verifiedSkills || []).length);
+    document.getElementById("st-stat-applied").textContent = String((st.appliedJobs || []).length);
+
+    var missEl = document.getElementById("st-missing-list");
+    if(r.missing.length === 0){
+      missEl.innerHTML = '<li><span><span class="m" style="color:var(--ok)">[✓]</span> All required skills ready!</span><a class="btn small secondary" href="#reward">Apply to Jobs</a></li>';
+    } else {
+      missEl.innerHTML = r.missing.map(function(sk){
+        return '<li><span><span class="m">[!]</span> '+esc(sk)+'</span>'
+          + '<button type="button" class="btn small st-prove-btn" data-skill="'+esc(sk)+'">Prove Skill</button></li>';
+      }).join("");
+      missEl.querySelectorAll(".st-prove-btn").forEach(function(btn){
+        btn.addEventListener("click", function(){
+          var sk = btn.getAttribute("data-skill");
+          DB.selectedSkill = sk;
+          DB.selectedMentorId = pickMentorForSkill(sk).id;
+          var matchTask = DB.miniTasks.find(function(t){ return t.skill.toLowerCase() === sk.toLowerCase(); });
+          DB.selectedTaskId = matchTask ? matchTask.id : null;
+          saveDB(DB);
+          location.hash = "#task";
+        });
+      });
+    }
+
+    var subs = st.submissions || [];
+    document.getElementById("st-submissions-list").innerHTML = subs.length
+      ? subs.map(function(s){
+          return '<li><div><strong>'+esc(s.skill)+'</strong> <span class="tag '+(s.status==="Verified"?"ok":"red")+'">'+esc(s.status)+'</span>'
+            + '<div class="muted">Mentor: '+esc(s.mentorName)+' · '+esc(s.type)+'</div>'
+            + (s.feedback ? '<div style="font-size:.86rem;color:var(--navy);margin-top:4px">Feedback: "'+esc(s.feedback)+'"</div>' : '')
+            + '</div></li>';
+        }).join("")
+      : '<li><span class="muted">No mini-tasks submitted yet. Pick a missing skill above to start!</span></li>';
+
+    var coursesEl = document.getElementById("st-courses-list");
+    var tipsEl = document.getElementById("st-tips-list");
+    if(!st.chosenMentorId){
+      coursesEl.innerHTML = '<li><span class="muted">Choose one mentor below to reveal their recommended courses.</span></li>';
+      tipsEl.innerHTML = '<li><span class="muted">Choose one mentor below to reveal their career tips.</span></li>';
+    } else {
+      var myCourses = DB.courses.filter(function(c){ return c.mentorId === st.chosenMentorId; });
+      coursesEl.innerHTML = myCourses.length
+        ? myCourses.map(function(c){
+            var done = isCourseDone(st, c.id);
+            return '<li><div style="flex:1;min-width:180px"><strong>'+esc(c.title)+'</strong> <span class="tag">'+esc(c.skill)+'</span>'
+              + '<div class="muted">'+esc(c.platform)+' · Shared by '+esc(c.mentorName)+'</div>'
+              + (c.description ? '<div style="font-size:.84rem">'+esc(c.description)+'</div>' : '')
+              + '</div><div class="row"><a class="btn small secondary" href="'+esc(safeUrl(c.url))+'" target="_blank" rel="noopener">Open</a>'
+              + '<button type="button" class="btn small '+(done?'ghost':'')+' st-toggle-course-btn" data-cid="'+esc(c.id)+'">'+(done?'✓ Done':'Mark Done')+'</button></div></li>';
+          }).join("")
+        : '<li><span class="muted">Your chosen mentor has not added courses yet.</span></li>';
+      coursesEl.querySelectorAll(".st-toggle-course-btn").forEach(function(btn){
+        btn.addEventListener("click", function(){
+          var nowDone = toggleCourseDone(st, btn.getAttribute("data-cid"));
+          toast(nowDone ? "Course completed! Dependent mini-tasks unlocked." : "Course marked incomplete.");
+          renderStudentPage();
+        });
+      });
+
+      var myTips = DB.tips.filter(function(t){ return t.mentorId === st.chosenMentorId; });
+      tipsEl.innerHTML = myTips.length
+        ? myTips.map(function(t){
+            return '<li><div><strong>'+esc(t.title)+'</strong> <span class="tag red">'+esc(t.category)+'</span>'
+              + '<div style="font-size:.88rem;margin:4px 0">'+esc(t.content)+'</div>'
+              + '<div class="muted">By '+esc(t.mentorName)+'</div></div></li>';
+          }).join("")
+        : '<li><span class="muted">Your chosen mentor has not posted tips yet.</span></li>';
+    }
+
+    var mg = document.getElementById("st-mentors-grid");
+    mg.innerHTML = DB.mentors.map(function(m){ return renderMentorCardHTML(m); }).join("");
+    bindMentorCardButtons(mg);
+  }
+
+  function renderMentorPage(){
+    var guard = document.getElementById("mentor-guard");
+    var dash = document.getElementById("mentor-dashboard");
+    var mt = getActiveMentor();
+    if(!mt){
+      guard.hidden = false;
+      dash.hidden = true;
+      return;
+    }
+    guard.hidden = true;
+    dash.hidden = false;
+
+    document.getElementById("mt-avatar").src = mt.avatar;
+    document.getElementById("mt-name").textContent = mt.name;
+    document.getElementById("mt-title-loc").textContent = mt.title + " · " + mt.location + " · " + mt.email;
+    document.getElementById("mt-bio").textContent = mt.description;
+    document.getElementById("mt-skills-tags").innerHTML = mt.skills.map(function(sk){
+      return '<span class="tag">'+esc(sk)+'</span>';
+    }).join("");
+
+    var pendingCount = 0;
+    DB.students.forEach(function(s){
+      (s.submissions || []).forEach(function(sub){ if(sub.status !== "Verified") pendingCount++; });
+    });
+
+    document.getElementById("mt-stat-students").textContent = String(DB.students.length);
+    document.getElementById("mt-stat-courses").textContent = String(DB.courses.length);
+    document.getElementById("mt-stat-tips").textContent = String(DB.tips.length);
+    document.getElementById("mt-stat-pending").textContent = String(pendingCount);
+
+    var coursesEl = document.getElementById("mt-courses-list");
+    coursesEl.innerHTML = DB.courses.map(function(c){
+      return '<li><div style="flex:1;min-width:180px"><strong>'+esc(c.title)+'</strong> <span class="tag">'+esc(c.skill)+'</span>'
+        + '<div class="muted">'+esc(c.platform)+' · Added by '+esc(c.mentorName)+'</div>'
+        + (c.description ? '<div style="font-size:.84rem">'+esc(c.description)+'</div>' : '')
+        + '</div><div class="row"><a class="btn small secondary" href="'+esc(safeUrl(c.url))+'" target="_blank" rel="noopener">Visit</a>'
+        + '<button type="button" class="btn small ghost del-course-btn" data-id="'+esc(c.id)+'">Remove</button></div></li>';
+    }).join("");
+    coursesEl.querySelectorAll(".del-course-btn").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var id = btn.getAttribute("data-id");
+        DB.courses = DB.courses.filter(function(c){ return c.id !== id; });
+        saveDB(DB);
+        toast("Course link removed.");
+        renderMentorPage();
+      });
+    });
+
+    var tipsEl = document.getElementById("mt-tips-list");
+    tipsEl.innerHTML = DB.tips.map(function(t){
+      return '<li><div style="flex:1;min-width:180px"><strong>'+esc(t.title)+'</strong> <span class="tag red">'+esc(t.category)+'</span>'
+        + '<div style="font-size:.88rem;margin:4px 0">'+esc(t.content)+'</div>'
+        + '<div class="muted">By '+esc(t.mentorName)+' · '+esc(t.date)+'</div>'
+        + '</div><button type="button" class="btn small ghost del-tip-btn" data-id="'+esc(t.id)+'">Remove</button></li>';
+    }).join("");
+    tipsEl.querySelectorAll(".del-tip-btn").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var id = btn.getAttribute("data-id");
+        DB.tips = DB.tips.filter(function(t){ return t.id !== id; });
+        saveDB(DB);
+        toast("Tip removed.");
+        renderMentorPage();
+      });
+    });
+
+    // Populate course prerequisite dropdown & mentor's mini-tasks
+    var myCourses = DB.courses.filter(function(c){ return c.mentorId === mt.id; });
+    var prereqSel = document.getElementById("mt-task-prereq");
+    prereqSel.innerHTML = '<option value="">None — Open to all students</option>'
+      + myCourses.map(function(c){
+          return '<option value="'+esc(c.id)+'">Requires Course: '+esc(c.title)+'</option>';
+        }).join("");
+
+    var myTasks = DB.miniTasks.filter(function(t){ return t.mentorId === mt.id; });
+    var tasksEl = document.getElementById("mt-tasks-list");
+    tasksEl.innerHTML = myTasks.length
+      ? myTasks.map(function(t){
+          var req = t.requiresCourseId ? DB.courses.find(function(c){ return c.id === t.requiresCourseId; }) : null;
+          return '<li><div style="flex:1;min-width:200px"><strong>'+esc(t.title)+'</strong> <span class="tag">'+esc(t.skill)+'</span> '
+            + (req ? '<span class="tag red">🔒 Requires: '+esc(req.title)+'</span>' : '<span class="tag ok">Open Task</span>')
+            + '<div style="font-size:.86rem;margin-top:4px">'+esc(t.brief)+'</div></div>'
+            + '<button type="button" class="btn small ghost del-task-btn" data-id="'+esc(t.id)+'">Remove</button></li>';
+        }).join("")
+      : '<li><span class="muted">No mini-tasks added yet. Use the form above to add open or course-gated tasks.</span></li>';
+    tasksEl.querySelectorAll(".del-task-btn").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var id = btn.getAttribute("data-id");
+        DB.miniTasks = DB.miniTasks.filter(function(t){ return t.id !== id; });
+        saveDB(DB);
+        toast("Mini-task removed.");
+        renderMentorPage();
+      });
+    });
+
+    renderMentorStudentList();
+  }
+
+  function renderMentorStudentList(){
+    var q = (document.getElementById("mt-student-search").value || "").trim().toLowerCase();
+    var container = document.getElementById("mt-students-list");
+    var filtered = DB.students.filter(function(s){
+      if(!q) return true;
+      return (s.name + " " + s.email + " " + s.major + " " + s.targetJob).toLowerCase().indexOf(q) >= 0;
+    });
+
+    if(filtered.length === 0){
+      container.innerHTML = '<p class="muted">No students match your filter.</p>';
+      return;
+    }
+
+    container.innerHTML = filtered.map(function(s){
+      var r = computeReadiness(s);
+      var verifyTarget = r.missing[0] || "";
+      var pendingSub = (s.submissions || []).find(function(sub){ return sub.status !== "Verified"; });
+      if(pendingSub) verifyTarget = pendingSub.skill;
+
+      return '<div class="student-card">'
+        + '<div class="between">'
+        + '  <div class="row">'
+        + '    <img class="mentor-img" style="width:48px;height:48px" src="'+esc(s.avatar)+'" alt="">'
+        + '    <div><strong>'+esc(s.name)+'</strong> <span class="muted">('+esc(s.email)+')</span>'
+        + '    <div class="muted">'+esc(s.major)+' &rarr; '+esc(s.targetJob)+'</div></div>'
+        + '  </div>'
+        + '  <div style="min-width:170px">'
+        + '    <div style="font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:4px">Readiness: '+r.pct+'%</div>'
+        + '    <div class="bar" style="height:10px"><span style="width:'+r.pct+'%"></span></div>'
+        + '  </div>'
+        + '</div>'
+        + '<div class="tags" style="margin:10px 0 6px">'
+        + r.have.map(function(sk){
+            var isV = (s.verifiedSkills || []).indexOf(sk) >= 0;
+            return '<span class="tag '+(isV?'ok':'')+'">'+(isV?'✓ ':'')+esc(sk)+'</span>';
+          }).join("")
+        + r.missing.map(function(sk){ return '<span class="tag red">Missing: '+esc(sk)+'</span>'; }).join("")
+        + '</div>'
+        + (pendingSub ? '<div style="font-size:.86rem;background:#FFF7F7;border:1px solid #F5C2C7;border-radius:6px;padding:7px 10px;margin:8px 0"><strong>Pending Submission:</strong> '+esc(pendingSub.skill)+' — "'+esc(pendingSub.note || "Uploaded deliverable")+'"</div>' : '')
+        + (verifyTarget
+          ? '<div class="row" style="margin-top:8px">'
+            + '<input type="text" class="mentor-fb-input" data-sid="'+esc(s.id)+'" placeholder="Optional feedback note for '+esc(s.name.split(" ")[0])+'..." style="flex:1;min-width:180px;padding:7px 10px">'
+            + '<button type="button" class="btn small verify-student-btn" data-sid="'+esc(s.id)+'" data-skill="'+esc(verifyTarget)+'">Verify "'+esc(verifyTarget)+'"</button>'
+            + '</div>'
+          : '<div class="muted" style="margin-top:6px">★ All target skills verified for this student.</div>')
+        + '</div>';
+    }).join("");
+
+    container.querySelectorAll(".verify-student-btn").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var sid = btn.getAttribute("data-sid");
+        var sk = btn.getAttribute("data-skill");
+        var student = DB.students.find(function(x){ return x.id === sid; });
+        var mt = getActiveMentor();
+        if(!student || !mt) return;
+        var fbInput = container.querySelector('.mentor-fb-input[data-sid="'+sid+'"]');
+        var fbText = (fbInput && fbInput.value.trim()) || ("Verified by " + mt.name + " — strong industry readiness.");
+
+        if(student.haveSkills.indexOf(sk) < 0) student.haveSkills.push(sk);
+        if(!student.verifiedSkills) student.verifiedSkills = [];
+        if(student.verifiedSkills.indexOf(sk) < 0) student.verifiedSkills.push(sk);
+        if(!student.completedTasks) student.completedTasks = [];
+        if(student.completedTasks.indexOf("skill:" + sk) < 0) student.completedTasks.push("skill:" + sk);
+        student.tracker = student.tracker || [];
+        student.tracker.unshift("✓ Verified: " + sk);
+
+        var matchedSub = (student.submissions || []).find(function(sub){ return sub.skill === sk && sub.status !== "Verified"; });
+        if(matchedSub){
+          matchedSub.status = "Verified";
+          matchedSub.feedback = fbText;
+        } else {
+          student.submissions = student.submissions || [];
+          student.submissions.unshift({
+            id: "sub_" + Date.now(),
+            skill: sk,
+            mentorId: mt.id,
+            mentorName: mt.name,
+            type: "Mentor Direct Verification",
+            note: "Verified from Mentor Workspace",
+            status: "Verified",
+            feedback: fbText,
+            date: new Date().toISOString().slice(0,10)
+          });
+        }
+        saveDB(DB);
+        addNotification(mt.name + " verified " + sk + " for " + student.name);
+        toast("Verified " + sk + " for " + student.name + "!");
+        renderMentorPage();
+      });
+    });
+  }
+
+  var ids = ["home","input","gap","mentorship","task","reward","login","student","mentor"];
   function show(){
-    var h=(location.hash||"").replace("#","");
-    if(ids.indexOf(h)<0)h="home";
-    ids.forEach(function(id){document.getElementById("screen-"+id).classList.toggle("active",id===h)});
-    document.querySelectorAll(".topbar nav a").forEach(function(a){a.setAttribute("aria-current",a.getAttribute("href")==="#"+h?"true":"false")});
+    var h = (location.hash || "").replace("#","");
+    if(ids.indexOf(h) < 0) h = "home";
+    ids.forEach(function(id){
+      document.getElementById("screen-" + id).classList.toggle("active", id === h);
+    });
+    document.querySelectorAll("#main-nav a").forEach(function(a){
+      a.setAttribute("aria-current", a.getAttribute("href") === "#" + h ? "true" : "false");
+    });
+
+    renderHeader();
+    if(h === "home") renderHome();
+    if(h === "input") renderInput();
+    if(h === "gap") renderGap();
+    if(h === "mentorship") renderMentorship();
+    if(h === "task") renderTask();
+    if(h === "reward") renderReward();
+    if(h === "login") renderLoginScreen();
+    if(h === "student") renderStudentPage();
+    if(h === "mentor") renderMentorPage();
     window.scrollTo(0,0);
   }
-  var tbtn=document.getElementById("toggle-view");
-  tbtn.addEventListener("click",function(){
-    var wire=document.getElementById("view-wire");
-    var hook=document.getElementById("view-hook");
-    var showWire=wire.hidden;
-    wire.hidden=!showWire;
-    hook.hidden=showWire;
-    tbtn.setAttribute("aria-pressed",String(showWire));
-    tbtn.textContent=showWire?"Switch back to hook view":"Switch to hero text view";
+
+  // Event wiring
+  document.getElementById("toggle-view").addEventListener("click", function(){
+    setHeroView(!DB.heroTextView);
+    saveDB(DB);
   });
-  window.addEventListener("hashchange",show);
+
+  document.getElementById("home-leave-mentor-btn").addEventListener("click", function(){
+    var st = getActiveStudent();
+    st.chosenMentorId = null;
+    saveDB(DB);
+    toast("Left mentor. Courses & tips hidden until you choose a mentor.");
+    renderHome();
+  });
+
+  document.getElementById("toggle-all-mentors").addEventListener("click", function(){
+    showAllMentors = !showAllMentors;
+    renderHome();
+  });
+
+  document.getElementById("notif-btn").addEventListener("click", function(e){
+    e.stopPropagation();
+    var pop = document.getElementById("notif-pop");
+    var open = pop.hidden;
+    pop.hidden = !open;
+    this.setAttribute("aria-expanded", String(open));
+  });
+  document.getElementById("clear-notif").addEventListener("click", function(){
+    DB.notifications = [];
+    saveDB(DB);
+    renderNotifications();
+  });
+  document.addEventListener("click", function(e){
+    var pop = document.getElementById("notif-pop");
+    var btn = document.getElementById("notif-btn");
+    if(!pop.hidden && !pop.contains(e.target) && e.target !== btn){
+      pop.hidden = true;
+      btn.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  // Onboarding / Input screen
+  document.getElementById("cv").addEventListener("change", function(){
+    var file = this.files && this.files[0];
+    if(file){
+      document.getElementById("cv-status").textContent = "Ready to analyze: " + file.name;
+    }
+  });
+
+  document.getElementById("generate-roadmap-btn").addEventListener("click", function(){
+    var st = getActiveStudent();
+    var major = document.getElementById("major").value;
+    var job = document.getElementById("job").value;
+    var fileInput = document.getElementById("cv");
+    var cvFile = fileInput.files && fileInput.files[0] ? fileInput.files[0].name : st.cvName;
+
+    var info = getTrackSkills(major, job);
+    st.major = major;
+    st.targetJob = job;
+    st.cvName = cvFile || "";
+    var merged = info.baseline.slice();
+    (st.verifiedSkills || []).forEach(function(vs){ if(merged.indexOf(vs) < 0) merged.push(vs); });
+    st.haveSkills = merged;
+    st.tracker = st.tracker || [];
+    st.tracker.unshift("Roadmap: " + job);
+    saveDB(DB);
+    toast("Roadmap generated for " + job + "!");
+    location.hash = "#gap";
+  });
+
+  // Action screen
+  document.getElementById("task-mentor-select").addEventListener("change", function(){
+    DB.selectedMentorId = this.value;
+    var firstOpen = DB.miniTasks.find(function(t){ return t.mentorId === DB.selectedMentorId && !t.requiresCourseId; })
+      || DB.miniTasks.find(function(t){ return t.mentorId === DB.selectedMentorId; });
+    DB.selectedTaskId = firstOpen ? firstOpen.id : null;
+    if(firstOpen) DB.selectedSkill = firstOpen.skill;
+    saveDB(DB);
+    renderTask();
+  });
+
+  function handleTaskSubmit(submitType){
+    var st = getActiveStudent();
+    var selectedTask = DB.selectedTaskId ? DB.miniTasks.find(function(t){ return t.id === DB.selectedTaskId; }) : null;
+    var skill = (selectedTask && selectedTask.skill) || DB.selectedSkill || "Preventive Maintenance";
+    var mentor = DB.mentors.find(function(m){ return m.id === DB.selectedMentorId; }) || DB.mentors[0];
+    var workFile = document.getElementById("work").files && document.getElementById("work").files[0] ? document.getElementById("work").files[0].name : "";
+    var note = document.getElementById("work-note").value.trim() || (workFile ? ("Uploaded " + workFile) : "Completed mini-task deliverable.");
+
+    completeTaskForStudent(st, selectedTask, skill, mentor, submitType, note);
+    document.getElementById("work-note").value = "";
+    saveDB(DB);
+    addNotification((st.name || "Guest") + " completed " + skill + " with " + mentor.name);
+    toast(skill + " marked completed & verified by " + mentor.name + "!");
+    location.hash = "#reward";
+  }
+
+  document.getElementById("btn-book-review").addEventListener("click", function(){
+    handleTaskSubmit("15-Min Mentor Review");
+  });
+  document.getElementById("btn-free-feedback").addEventListener("click", function(){
+    handleTaskSubmit("Free Written Feedback");
+  });
+
+  // Login & Sign Up screen
+  document.getElementById("role-tab-student").addEventListener("click", function(){ authRole = "student"; renderLoginScreen(); });
+  document.getElementById("role-tab-mentor").addEventListener("click", function(){ authRole = "mentor"; renderLoginScreen(); });
+  document.getElementById("mode-tab-login").addEventListener("click", function(){ authMode = "login"; renderLoginScreen(); });
+  document.getElementById("mode-tab-signup").addEventListener("click", function(){ authMode = "signup"; renderLoginScreen(); });
+
+  document.getElementById("auth-form").addEventListener("submit", function(e){
+    e.preventDefault();
+    var name = document.getElementById("auth-name").value.trim();
+    var email = document.getElementById("auth-email").value.trim().toLowerCase();
+    var pass = document.getElementById("auth-pass").value || "1234";
+    if(!email){ toast("Please enter an email."); return; }
+
+    var nowTime = new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+
+    if(authRole === "student"){
+      var existing = DB.students.find(function(s){ return s.email.toLowerCase() === email; });
+      if(existing && authMode === "login"){
+        DB.session = { role: "student", userId: existing.id };
+        DB.loginLog.unshift({ action: "Temp Login", role: "student", name: existing.name, email: existing.email, time: nowTime });
+        setHeroView(true);
+        saveDB(DB);
+        toast("Welcome back, " + existing.name + "!");
+        location.hash = "#home";
+        return;
+      }
+      if(existing && authMode === "signup"){
+        toast("Email already exists in dummy data — logging you in!");
+        DB.session = { role: "student", userId: existing.id };
+        DB.loginLog.unshift({ action: "Login", role: "student", name: existing.name, email: existing.email, time: nowTime });
+        setHeroView(true);
+        saveDB(DB);
+        location.hash = "#home";
+        return;
+      }
+
+      var major = authMode === "signup" ? document.getElementById("signup-major").value : "Mechanical Engineering";
+      var job = authMode === "signup" ? document.getElementById("signup-job").value : "Mechanical Maintenance Engineer";
+      var info = getTrackSkills(major, job);
+      var finalName = name || email.split("@")[0].replace(/[._-]+/g, " ").replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+      var newStudent = {
+        id: "s_" + Date.now(),
+        name: finalName,
+        email: email,
+        pass: pass,
+        major: major,
+        targetJob: job,
+        cvName: "",
+        haveSkills: info.baseline.slice(),
+        verifiedSkills: [],
+        completedTasks: [],
+        completedCourses: [],
+        chosenMentorId: null,
+        submissions: [],
+        appliedJobs: [],
+        tracker: [],
+        avatar: makeInitialsAvatar(finalName, false)
+      };
+      DB.students.unshift(newStudent);
+      DB.session = { role: "student", userId: newStudent.id };
+      DB.loginLog.unshift({ action: authMode === "signup" ? "Sign Up" : "Temp Login (Added)", role: "student", name: newStudent.name, email: newStudent.email, time: nowTime });
+      setHeroView(true);
+      saveDB(DB);
+      addNotification("New student added to dummy data: " + newStudent.name);
+      toast("Added " + newStudent.name + " to dummy students & logged in!");
+      this.reset();
+      document.getElementById("auth-pass").value = "1234";
+      location.hash = "#home";
+    } else {
+      var existingM = DB.mentors.find(function(m){ return m.email.toLowerCase() === email; });
+      if(existingM && authMode === "login"){
+        DB.session = { role: "mentor", userId: existingM.id };
+        DB.loginLog.unshift({ action: "Temp Login", role: "mentor", name: existingM.name, email: existingM.email, time: nowTime });
+        setHeroView(true);
+        saveDB(DB);
+        toast("Welcome back, " + existingM.name + "!");
+        location.hash = "#home";
+        return;
+      }
+      if(existingM && authMode === "signup"){
+        toast("Mentor email already exists — logging you in!");
+        DB.session = { role: "mentor", userId: existingM.id };
+        DB.loginLog.unshift({ action: "Login", role: "mentor", name: existingM.name, email: existingM.email, time: nowTime });
+        setHeroView(true);
+        saveDB(DB);
+        location.hash = "#home";
+        return;
+      }
+
+      var mName = name || email.split("@")[0].replace(/[._-]+/g, " ").replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+      var mTitle = (authMode === "signup" && document.getElementById("signup-title").value.trim()) || "Industry Mentor, Jordan & GCC Partner";
+      var mLoc = (authMode === "signup" && document.getElementById("signup-location").value.trim()) || "Amman, Jordan";
+      var mSkillsRaw = authMode === "signup" ? document.getElementById("signup-skills").value.trim() : "";
+      var mSkills = mSkillsRaw ? mSkillsRaw.split(",").map(function(x){ return x.trim(); }).filter(Boolean) : ["Career Coaching", "Portfolio Review"];
+      var mBio = (authMode === "signup" && document.getElementById("signup-bio").value.trim()) || "Industry practitioner mentoring university graduates into Jordan & GCC roles.";
+
+      var newMentor = {
+        id: "m_" + Date.now(),
+        name: mName,
+        email: email,
+        pass: pass,
+        title: mTitle,
+        location: mLoc,
+        price: "15 JOD",
+        skills: mSkills,
+        description: mBio,
+        avatar: makePortrait({bg:"#EBF0FA",coat:"#163166",accent:"#E62332",skin:"#E5B494",hair:"#222834",glasses:true})
+      };
+      DB.mentors.unshift(newMentor);
+      DB.miniTasks.unshift({
+        id: "mt_" + Date.now(),
+        mentorId: newMentor.id,
+        title: "Starter Portfolio Review (" + (mSkills[0] || "Industry Readiness") + ")",
+        skill: mSkills[0] || "Portfolio Review",
+        requiresCourseId: null,
+        brief: "Submit a short project brief or CV highlight to start your mentorship with " + newMentor.name + "."
+      });
+      DB.session = { role: "mentor", userId: newMentor.id };
+      DB.loginLog.unshift({ action: authMode === "signup" ? "Sign Up" : "Temp Login (Added)", role: "mentor", name: newMentor.name, email: newMentor.email, time: nowTime });
+      setHeroView(true);
+      saveDB(DB);
+      addNotification("New mentor added to dummy data: " + newMentor.name);
+      toast("Added " + newMentor.name + " to dummy mentors & logged in!");
+      this.reset();
+      document.getElementById("auth-pass").value = "1234";
+      location.hash = "#home";
+    }
+  });
+
+  document.getElementById("reset-demo-btn").addEventListener("click", function(){
+    DB = createSeedData();
+    saveDB(DB);
+    renderHeader();
+    renderLoginScreen();
+    toast("Dummy data reset to defaults.");
+  });
+
+  // Mentor Page actions
+  document.getElementById("mt-edit-bio-btn").addEventListener("click", function(){
+    var mt = getActiveMentor();
+    if(!mt) return;
+    document.getElementById("mt-bio-input").value = mt.description;
+    document.getElementById("mt-edit-bio-box").hidden = false;
+  });
+  document.getElementById("mt-cancel-bio-btn").addEventListener("click", function(){
+    document.getElementById("mt-edit-bio-box").hidden = true;
+  });
+  document.getElementById("mt-save-bio-btn").addEventListener("click", function(){
+    var mt = getActiveMentor();
+    if(!mt) return;
+    var val = document.getElementById("mt-bio-input").value.trim();
+    if(val){
+      mt.description = val;
+      saveDB(DB);
+      toast("Mentor description updated!");
+    }
+    document.getElementById("mt-edit-bio-box").hidden = true;
+    renderMentorPage();
+  });
+
+  document.getElementById("add-course-form").addEventListener("submit", function(e){
+    e.preventDefault();
+    var mt = getActiveMentor();
+    if(!mt) return;
+    var title = document.getElementById("course-title").value.trim();
+    var url = document.getElementById("course-url").value.trim();
+    var platform = document.getElementById("course-platform").value.trim();
+    var skill = document.getElementById("course-skill").value.trim();
+    var desc = document.getElementById("course-desc").value.trim();
+    DB.courses.unshift({
+      id: "c_" + Date.now(),
+      title: title,
+      url: url,
+      platform: platform,
+      skill: skill,
+      description: desc,
+      mentorId: mt.id,
+      mentorName: mt.name
+    });
+    saveDB(DB);
+    addNotification(mt.name + " added course link: " + title);
+    toast("Course link added!");
+    this.reset();
+    renderMentorPage();
+  });
+
+  document.getElementById("add-tip-form").addEventListener("submit", function(e){
+    e.preventDefault();
+    var mt = getActiveMentor();
+    if(!mt) return;
+    var title = document.getElementById("tip-title").value.trim();
+    var cat = document.getElementById("tip-category").value.trim();
+    var content = document.getElementById("tip-content").value.trim();
+    DB.tips.unshift({
+      id: "t_" + Date.now(),
+      title: title,
+      category: cat,
+      content: content,
+      mentorId: mt.id,
+      mentorName: mt.name,
+      date: new Date().toISOString().slice(0,10)
+    });
+    saveDB(DB);
+    addNotification(mt.name + " published a tip: " + title);
+    toast("Mentor tip published!");
+    this.reset();
+    renderMentorPage();
+  });
+
+  document.getElementById("ms-mentor-select").addEventListener("change", function(){
+    DB.selectedMentorId = this.value;
+    saveDB(DB);
+    renderMentorship();
+  });
+
+  document.getElementById("add-task-form").addEventListener("submit", function(e){
+    e.preventDefault();
+    var mt = getActiveMentor();
+    if(!mt) return;
+    var title = document.getElementById("mt-task-title").value.trim();
+    var skill = document.getElementById("mt-task-skill").value.trim();
+    var prereq = document.getElementById("mt-task-prereq").value || null;
+    var brief = document.getElementById("mt-task-brief").value.trim();
+    DB.miniTasks.unshift({
+      id: "mt_" + Date.now(),
+      mentorId: mt.id,
+      title: title,
+      skill: skill,
+      requiresCourseId: prereq,
+      brief: brief
+    });
+    saveDB(DB);
+    addNotification(mt.name + " added mini-task: " + title);
+    toast("Mini-task added to your mentorship!");
+    this.reset();
+    renderMentorPage();
+  });
+
+  document.getElementById("mt-student-search").addEventListener("input", renderMentorStudentList);
+
+  document.querySelectorAll(".logout-btn").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      DB.session = { role: "guest", userId: null };
+      setHeroView(false);
+      saveDB(DB);
+      renderHeader();
+      toast("Logged out.");
+      location.hash = "#home";
+    });
+  });
+
+  window.addEventListener("hashchange", show);
   show();
 })();
 </script>
